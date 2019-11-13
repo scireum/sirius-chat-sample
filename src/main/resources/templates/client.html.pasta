@@ -19,7 +19,7 @@
                 </div>
             </header>
 
-            <main class="chat-chat">
+            <main class="chat-wall">
                 <div class="msg left-msg">
 
                 </div>
@@ -29,7 +29,7 @@
                 </div>
             </main>
 
-            <form class="chat-inputarea">
+            <form class="chat-input-area">
                 <input type="text" class="chat-input" placeholder="Schreib eine Nachricht...">
                 <button type="submit" class="chat-send-btn">Absenden</button>
             </form>

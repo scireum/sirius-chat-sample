@@ -1,0 +1,38 @@
+<i:arg name="userName" type="String"/>
+
+<w:page title="Chat">
+    <i:block name="head">
+        <link rel="stylesheet" href="/assets/client/style.css">
+        <script>
+            var PERSON_NAME = "@userName";
+        </script>
+        <script type="text/javascript" src="/assets/client/client.js"></script>
+    </i:block>
+    <section class="chat-holder">
+        <section class="chat">
+            <header class="chat-header">
+                <div class="chat-header-title">
+                    <i class="fas fa-comment-alt"></i> sirius Chat
+                </div>
+                <div class="chat-header-options">
+                    <span><i class="fa fa-cogs"></i></span>
+                </div>
+            </header>
+
+            <main class="chat-chat">
+                <div class="msg left-msg">
+
+                </div>
+
+                <div class="msg right-msg">
+
+                </div>
+            </main>
+
+            <form class="chat-inputarea">
+                <input type="text" class="chat-input" placeholder="Schreib eine Nachricht...">
+                <button type="submit" class="chat-send-btn">Absenden</button>
+            </form>
+        </section>
+    </section>
+</w:page>

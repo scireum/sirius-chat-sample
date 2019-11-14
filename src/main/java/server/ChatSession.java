@@ -5,8 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import search.ChatMessage;
+import sirius.biz.isenguard.Isenguard;
+import sirius.biz.isenguard.RateLimitingInfo;
 import sirius.db.es.Elastic;
 import sirius.db.redis.Redis;
+import sirius.kernel.async.CallContext;
 import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Part;
 import sirius.kernel.health.Exceptions;
@@ -27,6 +30,11 @@ public class ChatSession extends WebsocketSession {
     @Part
     private static Elastic elastic;
 
+    @Part
+    private static Isenguard isenguard;
+
+    private static final String RATE_LIMIT_REALM_FRAME = "frame";
+
     /**
      * Creates a new session for the given channel and request.
      *
@@ -38,6 +46,8 @@ public class ChatSession extends WebsocketSession {
 
     @Override
     public void onFrame(WebSocketFrame webSocketFrame) {
+        isenguard.enforceRateLimiting(CallContext.getNodeName(), RATE_LIMIT_REALM_FRAME, () -> new RateLimitingInfo(null, null, null));
+
         if (webSocketFrame instanceof TextWebSocketFrame) {
             String textFrame = ((TextWebSocketFrame) webSocketFrame).text();
 

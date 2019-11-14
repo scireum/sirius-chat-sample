@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import sirius.kernel.commons.Strings;
+import sirius.kernel.di.std.Part;
 import sirius.kernel.health.Exceptions;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
@@ -13,6 +14,9 @@ public class ChatSession extends WebsocketSession {
 
     private static final String KEY_SENDER = "sender";
     private static final String KEY_TEXT = "text";
+
+    @Part
+    private static ChatSessionRegistry chatSessionRegistry;
 
     /**
      * Creates a new session for the given channel and request.
@@ -47,17 +51,33 @@ public class ChatSession extends WebsocketSession {
         try {
             String messageText = message.getString(KEY_TEXT);
             String sender = message.getString(KEY_SENDER);
-
-            propagateMessageToUser(messageText, sender);
+            sendMessageToAllSessions(messageText, sender);
         } catch (Exception e) {
             Exceptions.handle(e);
         }
     }
 
-    private void propagateMessageToUser(String text, String sender) {
+    private void sendMessageToAllSessions(String messageText, String sender) {
+        chatSessionRegistry.getAllSessions()
+                           .forEach(chatSession -> chatSession.propagateMessageToUser(messageText, sender));
+    }
+
+    public void propagateMessageToUser(String text, String sender) {
         JSONObject message = new JSONObject();
         message.put(KEY_TEXT, text);
         message.put(KEY_SENDER, sender);
         sendMessage(message.toJSONString());
+    }
+
+    @Override
+    public void onWebsocketOpened() {
+        super.onWebsocketOpened();
+        chatSessionRegistry.registerNewSession(this);
+    }
+
+    @Override
+    public void onWebsocketClosed() {
+        super.onWebsocketClosed();
+        chatSessionRegistry.removeSession(this);
     }
 }

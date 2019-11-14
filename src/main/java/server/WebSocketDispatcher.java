@@ -1,5 +1,6 @@
 package server;
 
+import sirius.kernel.di.std.Part;
 import sirius.kernel.di.std.Register;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketDispatcher;

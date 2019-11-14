@@ -46,19 +46,9 @@ public class ChatSession extends WebsocketSession {
             if ("hello".equals(type)) {
                 sendHelloMessage(jsonObject);
             } else if (KEY_TEXT.equals(type)) {
-                storeMessage(jsonObject);
                 redis.publish(chatSessionRegistry.getTopic(), textFrame);
             }
         }
-    }
-
-    private void storeMessage(JSONObject message) {
-        String messageText = message.getString(KEY_TEXT);
-        String sender = message.getString(KEY_SENDER);
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setText(messageText);
-        chatMessage.setSender(sender);
-        elastic.update(chatMessage);
     }
 
     private void sendHelloMessage(JSONObject jsonObject) {
@@ -70,10 +60,19 @@ public class ChatSession extends WebsocketSession {
         try {
             String messageText = message.getString(KEY_TEXT);
             String sender = message.getString(KEY_SENDER);
+            storeMessage(messageText, sender);
             propagateMessageToUser(messageText, sender);
         } catch (Exception e) {
             Exceptions.handle(e);
         }
+    }
+
+
+    private void storeMessage(String messageText, String sender) {
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setText(messageText);
+        chatMessage.setSender(sender);
+        elastic.update(chatMessage);
     }
 
     public void propagateMessageToUser(String text, String sender) {

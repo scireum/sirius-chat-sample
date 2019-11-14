@@ -1,9 +1,11 @@
 package server;
 
+import sirius.kernel.di.std.Register;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketDispatcher;
 import sirius.web.http.WebsocketSession;
 
+@Register
 public class WebSocketDispatcher implements WebsocketDispatcher {
 
     @Override

@@ -11,8 +11,8 @@ import sirius.web.http.WebsocketSession;
 
 public class ChatSession extends WebsocketSession {
 
-    private static final String PING = "ping";
-    private static final String PONG = "pong";
+    private static final String KEY_SENDER = "sender";
+    private static final String KEY_TEXT = "text";
 
     /**
      * Creates a new session for the given channel and request.
@@ -26,20 +26,27 @@ public class ChatSession extends WebsocketSession {
     @Override
     public void onFrame(WebSocketFrame webSocketFrame) {
         if (webSocketFrame instanceof TextWebSocketFrame) {
-            String textframe = ((TextWebSocketFrame) webSocketFrame).text();
+            String textFrame = ((TextWebSocketFrame) webSocketFrame).text();
 
-            if (Strings.areEqual(textframe, PING)) {
-                sendMessage(PONG);
-            } else {
-                onJSONMessage(JSON.parseObject(textframe));
+            JSONObject jsonObject = JSON.parseObject(textFrame);
+            String type = jsonObject.getString("type");
+            if ("hello".equals(type)) {
+                sendHelloMessage(jsonObject);
+            } else if (KEY_TEXT.equals(type)) {
+                handleText(jsonObject);
             }
         }
     }
 
-    private void onJSONMessage(JSONObject message) {
+    private void sendHelloMessage(JSONObject jsonObject) {
+        String sender = jsonObject.getString(KEY_SENDER);
+        propagateMessageToUser(Strings.apply("Willkommen im sirius Chat, %s!", sender), "SKIP");
+    }
+
+    private void handleText(JSONObject message) {
         try {
-            String messageText = message.getString("text");
-            String sender = message.getString("sender");
+            String messageText = message.getString(KEY_TEXT);
+            String sender = message.getString(KEY_SENDER);
 
             propagateMessageToUser(messageText, sender);
         } catch (Exception e) {
@@ -49,8 +56,8 @@ public class ChatSession extends WebsocketSession {
 
     private void propagateMessageToUser(String text, String sender) {
         JSONObject message = new JSONObject();
-        message.put("text", text);
-        message.put("sender", sender);
+        message.put(KEY_TEXT, text);
+        message.put(KEY_SENDER, sender);
         sendMessage(message.toJSONString());
     }
 }

@@ -3,7 +3,7 @@
 <w:page title="Nachrichtenverlauf">
     <i:block name="breadcrumbs">
         <li><a href="/">sirius Chat</a></li>
-        <li><a href="/tags">Nachrichtenverlauf</a></li>
+        <li><a href="/search">Nachrichtenverlauf</a></li>
     </i:block>
 
     <w:pageHeader title="Nachrichtenverlauf"/>

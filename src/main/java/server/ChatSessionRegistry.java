@@ -1,5 +1,7 @@
 package server;
 
+import com.alibaba.fastjson.JSON;
+import sirius.db.redis.Subscriber;
 import sirius.kernel.di.std.Register;
 
 import java.util.ArrayList;
@@ -9,8 +11,8 @@ import java.util.List;
 /**
  * A registry of all currently open {@link ChatSession}s.
  */
-@Register(classes = ChatSessionRegistry.class)
-public class ChatSessionRegistry {
+@Register(classes = {ChatSessionRegistry.class, Subscriber.class})
+public class ChatSessionRegistry implements Subscriber {
 
     private List<ChatSession> chatSessions = new ArrayList<>();
 
@@ -24,5 +26,15 @@ public class ChatSessionRegistry {
 
     public List<ChatSession> getAllSessions() {
         return Collections.unmodifiableList(chatSessions);
+    }
+
+    @Override
+    public String getTopic() {
+        return "sirius-chat-messages";
+    }
+
+    @Override
+    public void onMessage(String message) {
+        getAllSessions().forEach(chatSession -> chatSession.handleText(JSON.parseObject(message)));
     }
 }

@@ -1,0 +1,7 @@
+<i:arg type="String" name="point"/>
+<i:pragma name="priority" value="100"/>
+
+<i:if test="point == 'left'">
+    <w:menuItem url="/" title="Chat"/>
+    <w:menuItem url="/search" title="Nachrichtenverlauf"/>
+</i:if>

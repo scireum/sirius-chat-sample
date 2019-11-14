@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import search.ChatMessage;
+import sirius.db.es.Elastic;
 import sirius.db.redis.Redis;
 import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Part;
@@ -21,6 +23,9 @@ public class ChatSession extends WebsocketSession {
 
     @Part
     private static Redis redis;
+
+    @Part
+    private static Elastic elastic;
 
     /**
      * Creates a new session for the given channel and request.
@@ -41,9 +46,19 @@ public class ChatSession extends WebsocketSession {
             if ("hello".equals(type)) {
                 sendHelloMessage(jsonObject);
             } else if (KEY_TEXT.equals(type)) {
+                storeMessage(jsonObject);
                 redis.publish(chatSessionRegistry.getTopic(), textFrame);
             }
         }
+    }
+
+    private void storeMessage(JSONObject message) {
+        String messageText = message.getString(KEY_TEXT);
+        String sender = message.getString(KEY_SENDER);
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setText(messageText);
+        chatMessage.setSender(sender);
+        elastic.update(chatMessage);
     }
 
     private void sendHelloMessage(JSONObject jsonObject) {

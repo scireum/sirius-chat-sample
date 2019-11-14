@@ -1,7 +1,7 @@
 <i:arg name="userName" type="String"/>
 <i:arg name="websocketUrl" type="String" default="ws://localhost:9000/websocket"/>
 
-<w:page title="Chat">
+<w:page title="sirius Chat">
     <i:block name="head">
         <link rel="stylesheet" href="/assets/client/style.css">
         <script>
@@ -9,6 +9,9 @@
             var SOCKET_URL = '@websocketUrl';
         </script>
         <script type="text/javascript" src="/assets/client/client.js"></script>
+    </i:block>
+    <i:block name="breadcrumbs">
+        <li><a href="/">sirius Chat</a></li>
     </i:block>
     <section class="chat-holder">
         <section class="chat">

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import sirius.db.redis.Redis;
 import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Part;
 import sirius.kernel.health.Exceptions;
@@ -17,6 +18,9 @@ public class ChatSession extends WebsocketSession {
 
     @Part
     private static ChatSessionRegistry chatSessionRegistry;
+
+    @Part
+    private static Redis redis;
 
     /**
      * Creates a new session for the given channel and request.
@@ -37,7 +41,7 @@ public class ChatSession extends WebsocketSession {
             if ("hello".equals(type)) {
                 sendHelloMessage(jsonObject);
             } else if (KEY_TEXT.equals(type)) {
-                handleText(jsonObject);
+                redis.publish(chatSessionRegistry.getTopic(), textFrame);
             }
         }
     }
@@ -47,19 +51,14 @@ public class ChatSession extends WebsocketSession {
         propagateMessageToUser(Strings.apply("Willkommen im sirius Chat, %s!", sender), "SKIP");
     }
 
-    private void handleText(JSONObject message) {
+    public void handleText(JSONObject message) {
         try {
             String messageText = message.getString(KEY_TEXT);
             String sender = message.getString(KEY_SENDER);
-            sendMessageToAllSessions(messageText, sender);
+            propagateMessageToUser(messageText, sender);
         } catch (Exception e) {
             Exceptions.handle(e);
         }
-    }
-
-    private void sendMessageToAllSessions(String messageText, String sender) {
-        chatSessionRegistry.getAllSessions()
-                           .forEach(chatSession -> chatSession.propagateMessageToUser(messageText, sender));
     }
 
     public void propagateMessageToUser(String text, String sender) {

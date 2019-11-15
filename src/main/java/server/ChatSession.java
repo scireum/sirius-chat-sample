@@ -1,5 +1,6 @@
 package server;
 
+import bots.ChatBot;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -11,15 +12,20 @@ import sirius.db.es.Elastic;
 import sirius.db.redis.Redis;
 import sirius.kernel.async.CallContext;
 import sirius.kernel.commons.Strings;
+import sirius.kernel.di.PartCollection;
 import sirius.kernel.di.std.Part;
+import sirius.kernel.di.std.Parts;
 import sirius.kernel.health.Exceptions;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
+
+import java.util.Optional;
 
 public class ChatSession extends WebsocketSession {
 
     private static final String KEY_SENDER = "sender";
     private static final String KEY_TEXT = "text";
+    private static final String KEY_BOT_CALL = "botcall";
 
     @Part
     private static ChatSessionRegistry chatSessionRegistry;
@@ -32,6 +38,9 @@ public class ChatSession extends WebsocketSession {
 
     @Part
     private static Isenguard isenguard;
+
+    @Parts(ChatBot.class)
+    private static PartCollection<ChatBot> chatBots;
 
     private static final String RATE_LIMIT_REALM_FRAME = "frame";
 
@@ -46,7 +55,9 @@ public class ChatSession extends WebsocketSession {
 
     @Override
     public void onFrame(WebSocketFrame webSocketFrame) {
-        isenguard.enforceRateLimiting(CallContext.getNodeName(), RATE_LIMIT_REALM_FRAME, () -> new RateLimitingInfo(null, null, null));
+        isenguard.enforceRateLimiting(CallContext.getNodeName(),
+                                      RATE_LIMIT_REALM_FRAME,
+                                      () -> new RateLimitingInfo(null, null, null));
 
         if (webSocketFrame instanceof TextWebSocketFrame) {
             String textFrame = ((TextWebSocketFrame) webSocketFrame).text();
@@ -57,6 +68,9 @@ public class ChatSession extends WebsocketSession {
                 sendHelloMessage(jsonObject);
             } else if (KEY_TEXT.equals(type)) {
                 redis.publish(chatSessionRegistry.getTopic(), textFrame);
+            } else if (KEY_BOT_CALL.equals(type)) {
+                handleText(jsonObject);
+                tryHandleBotCall(jsonObject);
             }
         }
     }
@@ -77,6 +91,22 @@ public class ChatSession extends WebsocketSession {
         }
     }
 
+    /**
+     * Handles the provided bot call message by finding a responsible bot and passing it the message
+     * or displaying a fallback message to the user when no matching bot is found.
+     *
+     * @param message the bot call message to handle (containing the message as property "text"
+     */
+    private void tryHandleBotCall(JSONObject message) {
+        Optional<ChatBot> handlingBot =
+                chatBots.getParts().stream().filter(bot -> bot.shouldHandleMessage(message)).findAny();
+
+        if (handlingBot.isPresent()) {
+            handlingBot.get().handleMessage(message, this::propagateMessageToUser);
+        } else {
+            propagateMessageToUser("Kein Bot wurde für den eingegebenen Befehl gefunden", "SKIP");
+        }
+    }
 
     private void storeMessage(String messageText, String sender) {
         ChatMessage chatMessage = new ChatMessage();

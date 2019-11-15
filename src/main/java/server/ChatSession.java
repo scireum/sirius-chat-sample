@@ -19,12 +19,14 @@ import sirius.kernel.health.Exceptions;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
 
-import java.util.Optional;
-
 public class ChatSession extends WebsocketSession {
 
     private static final String KEY_SENDER = "sender";
     private static final String KEY_TEXT = "text";
+
+    /**
+     * Message type for incoming bot calls (messages beginning with a : prefix)
+     */
     private static final String KEY_BOT_CALL = "botcall";
 
     @Part
@@ -39,6 +41,12 @@ public class ChatSession extends WebsocketSession {
     @Part
     private static Isenguard isenguard;
 
+    /**
+     * List of all {@link sirius.kernel.di.std.Register registered} {@link ChatBot chat bots} that can handle bot calls.
+     * <p>
+     * This list is automatically filled by the framework with all {@link ChatBot} implementation that are marked with
+     * the {@link sirius.kernel.di.std.Register} annotation. These can then be accessed by iterating the collection.
+     */
     @Parts(ChatBot.class)
     private static PartCollection<ChatBot> chatBots;
 
@@ -68,10 +76,13 @@ public class ChatSession extends WebsocketSession {
                 sendHelloMessage(jsonObject);
             } else if (KEY_TEXT.equals(type)) {
                 redis.publish(chatSessionRegistry.getTopic(), textFrame);
-            } else if (KEY_BOT_CALL.equals(type)) {
-                handleText(jsonObject);
-                tryHandleBotCall(jsonObject);
             }
+
+            // TODO:
+            // When a message of type "botcall" (KEY_BOT_CALL) is received it should be handled separately by first
+            // displaying the received message to the user and then calling tryHandleBotCall where the actual processing occurs.
+            // Doing so will handle bot calls locally (no other user sees the bot call and the response), in a second step
+            // you could try to broadcast the bot call and the bot responses via redis to all users.
         }
     }
 
@@ -98,14 +109,12 @@ public class ChatSession extends WebsocketSession {
      * @param message the bot call message to handle (containing the message as property "text"
      */
     private void tryHandleBotCall(JSONObject message) {
-        Optional<ChatBot> handlingBot =
-                chatBots.getParts().stream().filter(bot -> bot.shouldHandleMessage(message)).findAny();
-
-        if (handlingBot.isPresent()) {
-            handlingBot.get().handleMessage(message, this::propagateMessageToUser);
-        } else {
-            propagateMessageToUser("Kein Bot wurde für den eingegebenen Befehl gefunden", "SKIP");
-        }
+        // TODO:
+        // Handle the incoming bot call (*message*) by finding a responsible bot from the *chatBots* collection
+        // (have a look at the *ChatBot* interface to see which method could be used for this.
+        // When a bot is found that can process the message pass it the message and a callback method for displaying the
+        // generated messages of the bot to the user (this could maybe also be a method reference from this class).
+        // When no matching bot is found display a message to the user explaining that the message could not be handled.
     }
 
     private void storeMessage(String messageText, String sender) {

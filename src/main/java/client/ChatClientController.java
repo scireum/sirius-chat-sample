@@ -27,18 +27,29 @@ public class ChatClientController extends BizController {
     private String server;
 
     /**
-     * Simple route that calls the pasta template containing the JavaScript cleint and provides it with some parameters.
+     * Simple route that calls the pasta template containing the name chooser.
      *
      * @param webContext the context of the web request
      */
     @DefaultRoute
     @Routed("/")
+    public void chooseName(WebContext webContext) {
+        webContext.respondWith().template("/templates/name.html.pasta");
+    }
+
+    /**
+     * Simple route that calls the pasta template containing the JavaScript cleint and provides it with some parameters.
+     *
+     * @param webContext the context of the web request
+     */
+    @DefaultRoute
+    @Routed("/chat")
     public void client(WebContext webContext) {
         isenguard.enforceRateLimiting(CallContext.getNodeName(),
                                       RATE_LIMIT_REALM_REQUEST,
                                       () -> new RateLimitingInfo(null, null, null));
 
-        String userName = CallContext.getNodeName();
+        String userName = webContext.get("username").asString(CallContext.getNodeName());
         String webSocketUrl = "ws://" + server + "/websocket";
         webContext.respondWith().template("/templates/client.html.pasta", userName, webSocketUrl);
     }

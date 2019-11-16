@@ -2,6 +2,7 @@
 <i:pragma name="priority" value="100"/>
 
 <i:if test="point == 'left'">
-    <w:menuItem url="/" title="Chat"/>
+    <w:menuItem url="/chat" title="Chat"/>
     <w:menuItem url="/search" title="Nachrichtenverlauf"/>
+    <w:menuItem url="/" title="Name ändern"/>
 </i:if>

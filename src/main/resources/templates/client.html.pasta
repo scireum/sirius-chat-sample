@@ -11,7 +11,7 @@
         <script type="text/javascript" src="/assets/client/client.js"></script>
     </i:block>
     <i:block name="breadcrumbs">
-        <li><a href="/">sirius Chat</a></li>
+        <li><a href="/chat">sirius Chat</a></li>
     </i:block>
     <section class="chat-holder">
         <section class="chat">

@@ -1,7 +1,7 @@
 <w:page>
     <div class="well well-dashboard">
         <span class="legend legend-small">sirius Chat</span>
-        <form class="form-inline" action="/chat" method="get" id="choose-na,e">
+        <form class="form-inline" action="/chat" method="get" id="choose-name">
             <div class="input-group">
                 <input type="text" name="username" value="" placeholder="Name eingeben..." autofocus class="form-control"/>
                 <span class="input-group-addon" onclick="$('#choose-name').submit()"><i

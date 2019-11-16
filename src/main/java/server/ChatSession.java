@@ -19,15 +19,27 @@ import sirius.kernel.health.Exceptions;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
 
+/**
+ * A {@link WebsocketSession} with a single user capable of recieving and sending chat messages.
+ */
 public class ChatSession extends WebsocketSession {
 
+    /**
+     * The key of under which the recieved JSON Object holds the name of the sender
+     */
     private static final String KEY_SENDER = "sender";
+    /**
+     * The key of under which the recieved JSON Object holds the text of the message
+     */
     private static final String KEY_TEXT = "text";
-
     /**
      * Message type for incoming bot calls (messages beginning with a : prefix)
      */
     private static final String KEY_BOT_CALL = "botcall";
+    /**
+     * The realm name to use for rate limiting calls to this websocket
+     */
+    private static final String RATE_LIMIT_REALM_FRAME = "frame";
 
     @Part
     private static ChatSessionRegistry chatSessionRegistry;
@@ -50,8 +62,6 @@ public class ChatSession extends WebsocketSession {
     @Parts(ChatBot.class)
     private static PartCollection<ChatBot> chatBots;
 
-    private static final String RATE_LIMIT_REALM_FRAME = "frame";
-
     /**
      * Creates a new session for the given channel and request.
      *
@@ -73,7 +83,7 @@ public class ChatSession extends WebsocketSession {
             JSONObject jsonObject = JSON.parseObject(textFrame);
             String type = jsonObject.getString("type");
             if ("hello".equals(type)) {
-                sendHelloMessage(jsonObject);
+                sendHelloMessage(jsonObject.getString(KEY_SENDER));
             } else if (KEY_TEXT.equals(type)) {
                 redis.publish(chatSessionRegistry.getTopic(), textFrame);
             }
@@ -86,12 +96,21 @@ public class ChatSession extends WebsocketSession {
         }
     }
 
-    private void sendHelloMessage(JSONObject jsonObject) {
-        String sender = jsonObject.getString(KEY_SENDER);
-        propagateMessageToUser(Strings.apply("Willkommen im sirius Chat, %s!", sender), "SKIP");
+    /**
+     * Greets the user.
+     *
+     * @param userName the name of the user to greet
+     */
+    private void sendHelloMessage(String userName) {
+        propagateMessageToUser(Strings.apply("Willkommen im sirius Chat, %s!", userName), "SKIP");
     }
 
-    public void handleText(JSONObject message) {
+    /**
+     * Takes a JSON message and processes it.
+     *
+     * @param message the message as JSON to process
+     */
+    public void recieveMessage(JSONObject message) {
         try {
             String messageText = message.getString(KEY_TEXT);
             String sender = message.getString(KEY_SENDER);
@@ -124,7 +143,7 @@ public class ChatSession extends WebsocketSession {
         elastic.update(chatMessage);
     }
 
-    public void propagateMessageToUser(String text, String sender) {
+    private void propagateMessageToUser(String text, String sender) {
         JSONObject message = new JSONObject();
         message.put(KEY_TEXT, text);
         message.put(KEY_SENDER, sender);

@@ -35,6 +35,6 @@ public class ChatSessionRegistry implements Subscriber {
 
     @Override
     public void onMessage(String message) {
-        getAllSessions().forEach(chatSession -> chatSession.handleText(JSON.parseObject(message)));
+        getAllSessions().forEach(chatSession -> chatSession.recieveMessage(JSON.parseObject(message)));
     }
 }

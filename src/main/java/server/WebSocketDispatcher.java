@@ -5,6 +5,9 @@ import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketDispatcher;
 import sirius.web.http.WebsocketSession;
 
+/**
+ * Simple {@link WebSocketDispatcher} that propagates calls to '/websocket' into a {@link ChatSession}.
+ */
 @Register
 public class WebSocketDispatcher implements WebsocketDispatcher {
 

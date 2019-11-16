@@ -12,6 +12,9 @@ import sirius.web.controller.DefaultRoute;
 import sirius.web.controller.Routed;
 import sirius.web.http.WebContext;
 
+/**
+ * Simple Controller that serves a html file under the main route.
+ */
 @Register(classes = Controller.class)
 public class ChatClientController extends BizController {
 
@@ -23,10 +26,17 @@ public class ChatClientController extends BizController {
     @ConfigValue("client.server")
     private String server;
 
+    /**
+     * Simple route that calls the pasta template containing the JavaScript cleint and provides it with some parameters.
+     *
+     * @param webContext the context of the web request
+     */
     @DefaultRoute
     @Routed("/")
     public void client(WebContext webContext) {
-        isenguard.enforceRateLimiting(CallContext.getNodeName(), RATE_LIMIT_REALM_REQUEST, () -> new RateLimitingInfo(null, null, null));
+        isenguard.enforceRateLimiting(CallContext.getNodeName(),
+                                      RATE_LIMIT_REALM_REQUEST,
+                                      () -> new RateLimitingInfo(null, null, null));
 
         String userName = CallContext.getNodeName();
         String webSocketUrl = "ws://" + server + "/websocket";

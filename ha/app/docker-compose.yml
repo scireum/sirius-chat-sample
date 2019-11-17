@@ -1,0 +1,16 @@
+version: '3'
+
+# Uses to test the sirius-chat container ad-hoc
+# replace the environment variables to point
+# to a running central elasticsearch + redis
+
+services:
+  # sirius-chat adhoc
+  sirius-chat-sample:
+    image: sirius-chat
+    ports:
+      - "9001:80"
+    environment:
+      - REDIS_HOST=192.168.1.202
+      - REDIS_PORT=33001
+      - ES_HOST=192.168.1.202:33002

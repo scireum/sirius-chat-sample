@@ -13,18 +13,19 @@
     <packaging>jar</packaging>
 
     <name>SIRIUS chat sample</name>
-
-
-    <properties>
-        <sirius.biz>13.0-rc56</sirius.biz>
-    </properties>
-
+    
     <repositories>
         <repository>
             <id>scireum-mvn</id>
             <url>https://mvn.scireum.com</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>scireum-mvn</id>
+            <url>https://mvn.scireum.com</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -35,12 +36,17 @@
         <dependency>
             <groupId>com.scireum</groupId>
             <artifactId>sirius-biz</artifactId>
-            <version>${sirius.biz}</version>
+            <version>13.0-rc56</version>
         </dependency>
         <dependency>
             <groupId>com.scireum</groupId>
             <artifactId>sirius-kernel</artifactId>
-            <version>DEVELOPMENT-SNAPSHOT</version>
+            <version>13.18</version>
+        </dependency>
+        <dependency>
+            <groupId>com.scireum</groupId>
+            <artifactId>parsii</artifactId>
+            <version>4.1</version>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,47 @@
+<i:arg name="messages" type="Page"/>
+
+<w:page title="Nachrichtenverlauf">
+    <i:block name="breadcrumbs">
+        <li><a href="/">sirius Chat</a></li>
+        <li><a href="/search">Nachrichtenverlauf</a></li>
+    </i:block>
+
+    <w:pageHeader title="Nachrichtenverlauf"/>
+    <div class="col-md-3">
+        <w:filterbox page="messages" baseUrl="/search"/>
+    </div>
+
+    <div class="col-md-9">
+        <w:tableSearchHeader page="messages" baseUrl="/search"/>
+
+        <w:table data="messages.getItems()">
+            <thead>
+            <tr>
+                <th class="col-md-4">
+                    Absender <br>
+                    <small class="muted"> Gesendet am</small>
+                </th>
+                <th>
+                    Nachricht
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <i:for type="search.ChatMessage" var="message" items="messages.getItems()">
+                <tr>
+                    <td class="title">
+                        @message.getSender()
+                        <br>
+                        <small class="muted">@toUserString(message.getSendAt())</small>
+                    </td>
+                    <td>
+                        @message.getText()
+                    </td>
+                </tr>
+            </i:for>
+            </tbody>
+        </w:table>
+
+        <w:pagination page="messages" baseUrl="/search"/>
+    </div>
+</w:page>

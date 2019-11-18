@@ -2,7 +2,7 @@ version: '3'
 
 # Reference. https://docs.traefik.io/getting-started/quick-start/
 # 1. launch the traefik reverse-proxy with 'docker-compose up -d traefik'
-# 2. launch 2 instances of sirius-chat with 'docker-compose up -d scale sirius-chat-sample=2'
+# 2. launch 2 instances of sirius-chat with 'docker-compose up -d scale --sirius-chat-sample=2'
 
 services:
   traefik:

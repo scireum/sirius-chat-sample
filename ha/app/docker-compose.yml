@@ -10,7 +10,7 @@ services:
   sirius-chat-sample:
     image: sirius-chat
     ports:
-      - "9001:80"
+      - "80:80"
     environment:
       - REDIS_HOST=CHANGE_ME
       - REDIS_PORT=33001

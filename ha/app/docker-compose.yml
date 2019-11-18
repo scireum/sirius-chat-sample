@@ -3,6 +3,7 @@ version: '3'
 # Uses to test the sirius-chat container ad-hoc
 # replace the environment variables to point
 # to a running central elasticsearch + redis
+# running them locally? your IP is a good choice for CHANGE_ME ;-)
 
 services:
   # sirius-chat adhoc

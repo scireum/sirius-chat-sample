@@ -3,6 +3,7 @@ version: '3'
 # Uses to test the sirius-chat container ad-hoc
 # replace the environment variables to point
 # to a running central elasticsearch + redis
+# running them locally? your IP is a good choice for CHANGE_ME ;-)
 
 services:
   # sirius-chat adhoc
@@ -11,6 +12,6 @@ services:
     ports:
       - "9001:80"
     environment:
-      - REDIS_HOST=192.168.1.202
+      - REDIS_HOST=CHANGE_ME
       - REDIS_PORT=33001
-      - ES_HOST=192.168.1.202:33002
+      - ES_HOST=CHANGE_ME:33002

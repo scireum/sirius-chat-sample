@@ -37,9 +37,9 @@ An example is the [WebServer](https://github.com/scireum/sirius-web/blob/master/
 provided by **sirius-web**, which uses the configuration to determine which port to 
 open etc.)
 
-Speaking of which, SIRIUS applications can be started using the built-in main class
-[Setup](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/Setup.java).
-A run-configuration for IntelliJ is present as **SERVER**.
+Speaking of which, SIRIUS applications can be started using a Java Application Run configuration as follows:
+- Main Class: `sirius.kernel.Setup`
+- VM Options:`-Ddebug=true -Dide=true`
 
 Note one more very important file (**src/resources/component.marker**). Although this file
 is empty, is it essential, as it is used by the [Classpath](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/Classpath.java)
@@ -48,8 +48,7 @@ to discover all classpath roots which participate in the SIRIUS system.
 
 ## Challenges
 
-Ok, we're almost good to go. Before diving into the first challenge, start a Debugger using the
-**SERVER** run configuration to make sure that the base system is operational. This will start
+Ok, we're almost good to go. Before diving into the first challenge, start a Debugger using the run configuration created above to make sure that the base system is operational. This will start
 a [**Docker**](https://docs.docker.com/) container for [**Redis**](https://redis.io/documentation) and one for [**Elasticsearch**](https://www.elastic.co/guide/index.html) which are required for later
 challenges (the stack is configured in [docker-compose.yml](docker-compose.yml)). Once a message
 like `System is UP and RUNNING` appears in the console, you should be able to view the chat UI: http://localhost:9000
@@ -75,7 +74,7 @@ web socket being connected, the [WebSocketDispatcher](src/main/java/server/WebSo
 will detect this and initialize a [ChatSession](src/main/java/server/ChatSession.java). Head over
 to the session class to read the provided docs and finally to start some coding :)
 
-One the challenge is completed, you should be able to chat with yourself +1
+Once the challenge is completed, you should be able to chat with yourself +1
 
 ### Hello Everyone (CHALLENGE-1)
 
@@ -99,6 +98,19 @@ After restarting the server, the chat should continue to work. Now if you specif
 
 
 ### Side-Quest: HA-Setup (CHALLENGE-4)
+
+This challenge gives a small glance at how a high availability system looks like. The goal is to start 2 or more instances
+of our chat app under a docker container, with a `traefik` container performing the load-balancing between them.
+
+To help with this challenge, you will need a docker image of our application. Just build one by executing:
+- Maven package (double-click the package Lifecycle)
+- Switch to the Terminal view of IntelliJ and run `docker build -t sirius-chat .`
+You can now optionally test the container by executing the [docker-compose.yml](ha/app/docker-compose.yml) file. Make sure to update
+the data for an existing Elasticsearch and Redis connections before issuing docker-compose up.
+If desired, another [docker-compose.yml](ha/central/docker-compose.yml) is available to start those for you.
+
+Now you can base yourself at [traefik.io](https://docs.traefik.io/getting-started/quick-start/) Quick Start and fill up the 
+[docker-compose.yml](ha/traefik/docker-compose.yml)
 
 ### Side-Quest: Chat-Bots (CHALLENGE-5)
 

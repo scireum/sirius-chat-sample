@@ -54,7 +54,7 @@ function getTimeString() {
 }
 
 function openSocket() {
-    socket = new WebSocket(SOCKET_URL);
+    socket = new WebSocket("ws://" + window.location.host + "/websocket");
 
     socket.onopen = function () {
         console.log("[websocket] Connection established");

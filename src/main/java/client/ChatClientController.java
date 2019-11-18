@@ -23,9 +23,6 @@ public class ChatClientController extends BizController {
 
     private static final String RATE_LIMIT_REALM_REQUEST = "request";
 
-    @ConfigValue("client.server")
-    private String server;
-
     /**
      * Simple route that calls the pasta template containing the name chooser.
      *
@@ -56,7 +53,6 @@ public class ChatClientController extends BizController {
                 RateLimitingInfo::fromCurrentContext);
 
         String userName = webContext.get("username").asString(CallContext.getNodeName());
-        String webSocketUrl = "ws://" + server + "/websocket";
-        webContext.respondWith().template("/templates/client.html.pasta", userName, webSocketUrl);
+        webContext.respondWith().template("/templates/client.html.pasta", userName);
     }
 }

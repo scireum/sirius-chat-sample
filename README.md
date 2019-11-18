@@ -96,21 +96,27 @@ After restarting the server, the chat should continue to work. Now if you specif
 
 ### Ahoi World (CHALLENGE-3)
 
+Now is time to package and create a container for our application.
+In real life, app do not run under IDEs ;-)
+
+Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and execute the following command:
+ `docker build -t sirius-chat .` using the provided [Dockerfile](Dockerfile)
+
+Now you can launch the application container. You will find a [docker-compose.yml](ha/app/docker-compose.yml) file ready to rock & roll.
+Just adjust the values for the desired Elasticsearch and Redis DBs, and from the directory hosting the file 
+execute `docker-compose -d up`. After started it should be available at the http://localhost:80.
+
+To stop it, run `docker-compose down`
 
 ### Side-Quest: HA-Setup (CHALLENGE-4)
 
 This challenge gives a small glance at how a high availability system looks like. The goal is to start 2 or more instances
 of our chat app under a docker container, with a `traefik` container performing the load-balancing between them.
 
-To help with this challenge, you will need a docker image of our application. Just build one by executing:
-- Maven package (double-click the package Lifecycle)
-- Switch to the Terminal view of IntelliJ and run `docker build -t sirius-chat .`
-You can now optionally test the container by executing the [docker-compose.yml](ha/app/docker-compose.yml) file. Make sure to update
-the data for an existing Elasticsearch and Redis connections before issuing docker-compose up.
-If desired, another [docker-compose.yml](ha/central/docker-compose.yml) is available to start those for you.
-
-Now you can base yourself at [traefik.io](https://docs.traefik.io/getting-started/quick-start/) Quick Start and fill up the 
-[docker-compose.yml](ha/traefik/docker-compose.yml)
+Read the Quick Start Guide at [traefik.io](https://docs.traefik.io/getting-started/quick-start/) and fill up the 
+[docker-compose.yml](ha/traefik/docker-compose.yml) file in in order to setup a load-balancer for our chat.
+To start traefik: `docker-compose up -d traefik`
+To start 2 instances of the sirius-chat: `docker-compose up -d scale --sirius-chat-sample=2`
 
 ### Side-Quest: Chat-Bots (CHALLENGE-5)
 

@@ -40,3 +40,20 @@ if (bot.isPresent()) {
 } else {
     uplink.distributeMessage(chatMessage);
 }
+
+//TODO CHALLENGE-6
+@Part
+private static Isenguard isenguard;
+
+@Override
+public void onWebsocketOpened() {
+    isenguard.enforceRateLimiting(getContext().getRemoteIP().toString(),
+                                  "connection",
+                                  RateLimitingInfo::fromCurrentContext);
+}
+
+private void handleChatMessage(ChatMessage chatMessage) {
+    isenguard.enforceRateLimiting(getContext().getRemoteIP().toString(),
+                                  "frame",
+                                  RateLimitingInfo::fromCurrentContext);
+}

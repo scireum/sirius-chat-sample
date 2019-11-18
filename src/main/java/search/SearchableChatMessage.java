@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Entity that represents a text message sent in a chat.
  */
-public class ChatMessage extends SearchableEntity {
+public class SearchableChatMessage extends SearchableEntity {
 
     /**
      * The sender of the message.

@@ -8,6 +8,9 @@ for client which are connected via web sockets. The task itself is split up
 into challenges - some build up onto each other, others are more like side
 quests which provide some functionality but can also be skipped.
 
+Also feel free to have a look around, place breakpoints, figure out how
+the surrounding framework works and most importantly **HAVE FUN** :)
+
 ## SIRIUS
 
 SIRIUS is split up into distinct modules to provide a broad range of use-cases.
@@ -55,7 +58,7 @@ even monitor some details via http://localhost:9000/system/console (e.g. by exec
 
 Note that each challenge has a unique ID (like CHALLENGE-0). You can search in all files ("Find in Path")
 using this ID to spot all relevant code positions. You will also find the appropriate .solutions file
-which will assist i case you're in trouble :-P
+which will assist in case you're in trouble :-P
 
 ### Hello World (CHALLENGE-0)
 
@@ -129,3 +132,16 @@ that someone reached its limit. Or you can provide a custom ChatBot which reveal
 for the caller by using **Isenguard.getRateLimitInfo**.
 
 ### Side-Quest: Search (CHALLENGE-7) 
+
+Searching and sorting is all that computers do :) Therefore we also want to provide a way to search
+in the history of our chat room. Luckily, sirius-biz and sirius-db provide connectivity to all sorts
+of databases (MariaDB, MongoDB, Elasticsearch). The latter is interesting for us, as it provides a
+complete fulltext search engine out of the box. Have a look at [SearchableChatMessage](src/main/java/search/SearchableChatMessage.java)
+which is the entity class (a Java class which defines the fields to be stored in Elastic). The
+[SearchMessagesController](src/main/java/search/SearchMessagesController.java) is also readily available
+and provides a tiny UI to search in elastic. Also have a look (and later play around) with the template
+which is used to actually render the search output [search.html.pasta](src/main/resources/templates/search.html.pasta).
+
+To ingest data into Elastic, jump to the [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) and
+implement the TODOs in **distributeMessage**. After restarting the debugger, new chat message should be
+visible in the search UI. 

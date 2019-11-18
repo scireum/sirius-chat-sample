@@ -13,27 +13,30 @@ import sirius.web.controller.Routed;
 import sirius.web.http.WebContext;
 
 /**
- * Simple controller which provides a search view for {@link ChatMessage}
+ * Simple controller which provides a search view for {@link SearchableChatMessage}
  */
 @Register(classes = Controller.class)
 public class SearchMessagesController extends BizController {
 
     /**
-     * Route that creates a {@link Page} of {@link ChatMessage}s and sends it to a pasta template containing a search view.
+     * Route that creates a {@link Page} of {@link SearchableChatMessage}s and sends it to a pasta template containing a search view.
      */
     @DefaultRoute
     @Routed("/search")
     public void search(WebContext webContext) {
-        Page<ChatMessage> chatMessagePage =
-                ElasticPageHelper.withQuery(elastic.select(ChatMessage.class).orderDesc(ChatMessage.SEND_AT))
+        //TODO CHALLENGE-7 search requests are handled here and mostly just forwarded to Elasticsearch
+        Page<SearchableChatMessage> chatMessagePage =
+                ElasticPageHelper.withQuery(elastic.select(SearchableChatMessage.class).orderDesc(SearchableChatMessage.SEND_AT))
                                  .withContext(webContext)
-                                 .addTimeAggregation(ChatMessage.SEND_AT,
+                                 .addTimeAggregation(SearchableChatMessage.SEND_AT,
                                                      DateRange.lastFiveMinutes(),
                                                      DateRange.lastFiveteenMinutes(),
                                                      DateRange.lastHour())
-                                 .addTermAggregation(ChatMessage.SENDER)
+                                 .addTermAggregation(SearchableChatMessage.SENDER)
                                  .withSearchFields(QueryField.contains(SearchableEntity.SEARCH_FIELD))
                                  .asPage();
+
+        // Revise the template to understand how the output is generated...
         webContext.respondWith().template("/templates/search.html.pasta", chatMessagePage);
     }
 }

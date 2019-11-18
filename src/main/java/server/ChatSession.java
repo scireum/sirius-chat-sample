@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import sirius.biz.isenguard.Isenguard;
+import sirius.biz.isenguard.RateLimitingInfo;
 import sirius.kernel.di.std.Part;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
@@ -95,6 +97,8 @@ public class ChatSession extends WebsocketSession {
         //TODO CHALLENGE-5 - get hold of all available {@link ChatBot} implementations by using a @Parts annotation
         // on a static List<ChatBot> field.
         // Iterate over all bots while they return false and finally distribute the message
+
+        //TODO CHALLENGE-6 Enforce rate limiting
     }
 
     /**
@@ -109,6 +113,7 @@ public class ChatSession extends WebsocketSession {
     @Override
     public void onWebsocketOpened() {
         //TODO CHALLENGE-1 notify the CHatSessionRegistry about this session
+        //TODO CHALLENGE-6 Enforce rate limiting
     }
 
     @Override

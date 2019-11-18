@@ -1,7 +1,9 @@
 package server;
 
+import search.SearchableChatMessage;
 import sirius.kernel.di.std.Register;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,5 +22,9 @@ public class ChatSessionRegistry implements ChatUplink {
     @Override
     public void distributeMessage(ChatMessage message) {
         // TODO Call the "sendToUser" for all available messages..
+
+        // TODO CHALLENGE-7 - create a new instance of SearchableChatMessage
+        // TODO use @Part to obtain the database connector "Elastic" which can insert entities into Elasticsearch.
+        // TODO invoke elastic.update to persist the entity in Elasticsearch....
     }
 }

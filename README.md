@@ -112,4 +112,20 @@ Maybe add a command to report how many people are in the chat, or when user X wr
 
 ### Side-Quest: Rate-Limiting (CHALLENGE-6)
 
+Now that our precious chat server is running, we need to protect it from the cruel outside world.
+sirius-biz provides a simple but effective firewall which relies on redis to ensure some rate limiting
+(e.g. user X doesn't perform action Y more often than 1000 times per 1 minute). The class is named
+**Isenguard** and an example of using it can be found in the [ChatClientController](src/main/java/client/ChatClientController.java).
+
+Two places are naturally interesting to rate limiting **ChatSession.handleChatMessage** to handle
+the number of incoming chat message and **ChatSession.onWebsocketOpened** to handle the number of
+connection attempts. Obtain a reference to Isenguard using a static field + @Part and enforce
+a proper rate limit. Play around with the settings in application.conf (requires a restart) to
+ensure that they work.
+
+Note that [Isenguard](https://github.com/scireum/sirius-biz/blob/master/src/main/java/sirius/biz/isenguard/Isenguard.java)
+provides a bunch of additional methods. You can use **Isenguard.isRateLimitReached** and its callbacks and notify everyone
+that someone reached its limit. Or you can provide a custom ChatBot which reveals the current limit status
+for the caller by using **Isenguard.getRateLimitInfo**.
+
 ### Side-Quest: Search (CHALLENGE-7) 

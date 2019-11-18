@@ -45,9 +45,15 @@ public class ChatClientController extends BizController {
     @DefaultRoute
     @Routed("/chat")
     public void client(WebContext webContext) {
-        isenguard.enforceRateLimiting(CallContext.getNodeName(),
-                                      RATE_LIMIT_REALM_REQUEST,
-                                      () -> new RateLimitingInfo(null, null, null));
+        // TODO CHALLENGE-6, here is an example of Isenguard...
+        isenguard.enforceRateLimiting(
+                // We limit per remote IP address
+                webContext.getRemoteIP().toString(),
+                // Names the config section in application.conf from where to load the limits
+                RATE_LIMIT_REALM_REQUEST,
+                // In case the limit is hit, we need some more infos to log the incident, by default we extract
+                // this from the current web request....
+                RateLimitingInfo::fromCurrentContext);
 
         String userName = webContext.get("username").asString(CallContext.getNodeName());
         String webSocketUrl = "ws://" + server + "/websocket";

@@ -76,7 +76,7 @@ public class ChatSession extends WebsocketSession {
         // TODO CHALLENGE-0 fill the "username" field from the "sender" value in the given message object
         // TODO send a message back to the user like "Welcome [username]..." with an artificial sender
         // e.g. "server" or "Bot"....
-        
+
         //TODO feel free to play around here. Send additional messages, like the joke of the day. Or notify everyone
         //TODO that s.b. joined the chat.
     }

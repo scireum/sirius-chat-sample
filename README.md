@@ -4,7 +4,7 @@ This is an illustration project used to showcase how to setup and use the
 [SIRIUS](https://github.com/scireum/sirius-kernel) libraries.
 
 The task at hands is creating a small web server which provides a chat room
-for client which are connected via web sockets. The task itself is split up
+for clients which are connected via web sockets. The task itself is split up
 into challenges - some build up onto each other, others are more like side
 quests which provide some functionality but can also be skipped.
 
@@ -74,7 +74,7 @@ web socket being connected, the [WebSocketDispatcher](src/main/java/server/WebSo
 will detect this and initialize a [ChatSession](src/main/java/server/ChatSession.java). Head over
 to the session class to read the provided docs and finally to start some coding :)
 
-Once the challenge is completed, you should be able to chat with yourself +1
+Once the challenge is completed, you should be able to chat with yourself. :)
 
 ### Hello Everyone (CHALLENGE-1)
 
@@ -97,7 +97,7 @@ After restarting the server, the chat should continue to work. Now if you specif
 ### Ahoi World (CHALLENGE-3)
 
 Now is time to package and create a container for our application.
-In real life, app do not run under IDEs ;-)
+In real life, apps do not run under IDEs ;-)
 
 Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and execute the following command:
  `docker build -t sirius-chat .` using the provided [Dockerfile](Dockerfile)

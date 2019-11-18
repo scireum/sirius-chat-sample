@@ -8,9 +8,9 @@
 
 package bots;
 
-import com.alibaba.fastjson.JSONObject;
+import server.ChatMessage;
 
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Describes a chat bot that can intercept incoming messages and react to them when appropriate.
@@ -25,14 +25,16 @@ public interface ChatBot {
      * @param message the received message that should be handled
      * @return <true> when the bot can handle the message, <tt>false</tt> otherwise
      */
-    boolean shouldHandleMessage(JSONObject message);
+    boolean shouldHandleMessage(ChatMessage message);
 
     /**
      * Actually processes and interacts with the received message.
      *
-     * @param message                the received message that can be interacted on
-     * @param outgoingMessageHandler a consumer for displaying messages to the user, receiving a message for the first
-     *                               parameter and the sender name for the second parameter
+     * @param message              the received message that can be interacted on
+     * @param responsesToUser      consumes all message which are only sent back to the calling user
+     * @param responsesToEveryBody consumes all message which are sent to all users
      */
-    void handleMessage(JSONObject message, BiConsumer<String, String> outgoingMessageHandler);
+    void handleMessage(ChatMessage message,
+                       Consumer<ChatMessage> responsesToUser,
+                       Consumer<ChatMessage> responsesToEveryBody);
 }

@@ -8,14 +8,14 @@
 
 package bots;
 
-import com.alibaba.fastjson.JSONObject;
 import parsii.eval.Expression;
 import parsii.eval.Parser;
 import parsii.tokenizer.ParseException;
+import server.ChatMessage;
 import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Register;
 
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Handles :calc messages by trying to evaluate the following mathematical expression using {@link Parser} and responding with the result.
@@ -28,22 +28,25 @@ public class CalcBot implements ChatBot {
     private static final String HANDLED_MESSAGE_PREFIX = ":calc ";
 
     @Override
-    public boolean shouldHandleMessage(JSONObject message) {
-        return message.getString("text").startsWith(HANDLED_MESSAGE_PREFIX);
+    public boolean shouldHandleMessage(ChatMessage chatMessage) {
+        return chatMessage.getText().startsWith(HANDLED_MESSAGE_PREFIX);
     }
 
     @Override
-    public void handleMessage(JSONObject message, BiConsumer<String, String> outgoingMessageHandler) {
-        String calculation = message.getString("text").substring(HANDLED_MESSAGE_PREFIX.length());
+    public void handleMessage(ChatMessage message,
+                              Consumer<ChatMessage> responsesToUser,
+                              Consumer<ChatMessage> responsesToEveryBody) {
+        String calculation = message.getText().substring(HANDLED_MESSAGE_PREFIX.length());
 
         try {
             Expression expression = Parser.parse(calculation);
 
-            outgoingMessageHandler.accept(Strings.apply("Das Ergebnis ist: %.2f", expression.evaluate()),
-                                          getClass().getSimpleName());
+            responsesToEveryBody.accept(message);
+            responsesToEveryBody.accept(new ChatMessage(Strings.apply("Das Ergebnis ist: %.2f", expression.evaluate()),
+                                                        getClass().getSimpleName()));
         } catch (ParseException e) {
-            outgoingMessageHandler.accept("Die übergebene Rechnung konnte nicht verarbeitet werden.",
-                                          getClass().getSimpleName());
+            responsesToEveryBody.accept(new ChatMessage("Die übergebene Rechnung konnte nicht verarbeitet werden.",
+                                                        getClass().getSimpleName()));
         }
     }
 }

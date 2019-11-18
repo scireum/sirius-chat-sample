@@ -27,3 +27,16 @@ public void onWebsocketOpened() {
 public void onWebsocketClosed() {
     registry.removeSession(this);
 }
+
+//TODO CHALLENGE-5:
+
+@Parts(ChatBot.class)
+private static Collection<ChatBot> chatBots;
+
+Optional<ChatBot> bot =
+        chatBots.stream().filter(chatBot -> chatBot.shouldHandleMessage(chatMessage)).findFirst();
+if (bot.isPresent()) {
+    bot.get().handleMessage(chatMessage, this::sendToUser, uplink::distributeMessage);
+} else {
+    uplink.distributeMessage(chatMessage);
+}

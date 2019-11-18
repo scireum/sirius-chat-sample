@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
-import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Part;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
@@ -77,6 +76,9 @@ public class ChatSession extends WebsocketSession {
         // TODO CHALLENGE-0 fill the "username" field from the "sender" value in the given message object
         // TODO send a message back to the user like "Welcome [username]..." with an artificial sender
         // e.g. "server" or "Bot"....
+        
+        //TODO feel free to play around here. Send additional messages, like the joke of the day. Or notify everyone
+        //TODO that s.b. joined the chat.
     }
 
     /**
@@ -87,6 +89,12 @@ public class ChatSession extends WebsocketSession {
     private void handleChatMessage(ChatMessage chatMessage) {
         //TODO CHALLENGE-0 send the received message right back to the user connected to this websocket
         //TODO CHALLENGE-1 forward the received message to the ChatUplink
+
+        // Feel free to play around here - censor curse words / replace emoji by their unicode code points or the like...
+
+        //TODO CHALLENGE-5 - get hold of all available {@link ChatBot} implementations by using a @Parts annotation
+        // on a static List<ChatBot> field.
+        // Iterate over all bots while they return false and finally distribute the message
     }
 
     /**

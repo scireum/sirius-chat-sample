@@ -39,7 +39,7 @@ function sendMessage() {
     if (!msgText) return;
     chatInput.value = "";
     socket.send(JSON.stringify({
-        type: msgText.indexOf(':') === 0 ? 'botcall' : 'text',
+        type: 'text',
         text: msgText,
         sender: USER_NAME
     }));

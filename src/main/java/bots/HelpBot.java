@@ -8,11 +8,11 @@
 
 package bots;
 
-import com.alibaba.fastjson.JSONObject;
+import server.ChatMessage;
 import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Register;
 
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Handles :hilfe messages and responds with a short message.
@@ -25,14 +25,17 @@ public class HelpBot implements ChatBot {
     private static final String HANDLED_MESSAGE = ":hilfe";
 
     @Override
-    public boolean shouldHandleMessage(JSONObject message) {
-        return HANDLED_MESSAGE.equals(message.getString("text"));
+    public boolean shouldHandleMessage(ChatMessage message) {
+        return HANDLED_MESSAGE.equals(message.getText());
     }
 
     @Override
-    public void handleMessage(JSONObject message, BiConsumer<String, String> outgoingMessageHandler) {
-        String sender = message.getString("sender");
-        outgoingMessageHandler.accept(Strings.apply("Hallo %s, ich helfe dir gerne!", sender),
-                                      getClass().getSimpleName());
+    public void handleMessage(ChatMessage message,
+                              Consumer<ChatMessage> responsesToUser,
+                              Consumer<ChatMessage> responsesToEveryBody) {
+        responsesToUser.accept(new ChatMessage(Strings.apply("Hallo %s, ich helfe dir gerne!", message.getSender()),
+                                               getClass().getSimpleName()));
+
+        // Have fun here - tell everyone that someone needs help
     }
 }

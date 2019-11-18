@@ -99,6 +99,17 @@ After restarting the server, the chat should continue to work. Now if you specif
 
 ### Side-Quest: Chat-Bots (CHALLENGE-5)
 
+To add chat bots, have a look at the [ChatBot](src/main/java/bots/ChatBot.java) interface and the two
+examples ([HelpBot](src/main/java/bots/HelpBot.java), [CalcBot](src/main/java/bots/CalcBot.java)).
+
+To invoke the chat bots, jump back to the [ChatSession](src/main/java/server/ChatSession.java) and
+invoke the bots in "handleChatMessage" instead of directly forwarding the message (there is a descriptive comment
+there already).
+
+Once that works, make sure to have some fun by either modifying the existing bots or by providing your own.
+Maybe add a command to report how many people are in the chat, or when user X wrote the last message 
+(both would require to extend ChatSessionRegistry a bit).
+
 ### Side-Quest: Rate-Limiting (CHALLENGE-6)
 
 ### Side-Quest: Search (CHALLENGE-7) 

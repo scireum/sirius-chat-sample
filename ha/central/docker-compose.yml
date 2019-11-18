@@ -1,0 +1,23 @@
+version: '3'
+
+# launches a 'central' elasticsearch and redis containers
+# publishing fixed ports, which can be accessible from other clients
+
+services:
+  # redis
+  redis:
+    image: redis:3.2
+    ports:
+      - "33001:6379"
+    hostname: redis
+
+  # es
+  elasticsearch:
+    image: elasticsearch:5.6.8
+    ports:
+      - "33002:9200"
+    environment:
+      - xpack.security.enabled=false
+      - script.inline=true
+      - ES_JAVA_OPTS=-Xms32M -Xmx128M
+    hostname: es

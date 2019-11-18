@@ -1,66 +1,31 @@
 package server;
 
-import bots.ChatBot;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
-import search.ChatMessage;
-import sirius.biz.isenguard.Isenguard;
-import sirius.biz.isenguard.RateLimitingInfo;
-import sirius.db.es.Elastic;
-import sirius.db.redis.Redis;
-import sirius.kernel.async.CallContext;
 import sirius.kernel.commons.Strings;
-import sirius.kernel.di.PartCollection;
 import sirius.kernel.di.std.Part;
-import sirius.kernel.di.std.Parts;
-import sirius.kernel.health.Exceptions;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
 
 /**
- * A {@link WebsocketSession} with a single user capable of recieving and sending chat messages.
+ * A {@link WebsocketSession} with a single user capable of receiving and sending chat messages.
+ * <p>
+ * This class is instantiated by the {@link WebSocketDispatcher} for each incoming web socket.
  */
 public class ChatSession extends WebsocketSession {
 
     /**
-     * The key of under which the recieved JSON Object holds the name of the sender
+     * Contains the username of the user connected to this session.
      */
-    private static final String KEY_SENDER = "sender";
-    /**
-     * The key of under which the recieved JSON Object holds the text of the message
-     */
-    private static final String KEY_TEXT = "text";
-    /**
-     * Message type for incoming bot calls (messages beginning with a : prefix)
-     */
-    private static final String KEY_BOT_CALL = "botcall";
-    /**
-     * The realm name to use for rate limiting calls to this websocket
-     */
-    private static final String RATE_LIMIT_REALM_FRAME = "frame";
-
-    @Part
-    private static ChatSessionRegistry chatSessionRegistry;
-
-    @Part
-    private static Redis redis;
-
-    @Part
-    private static Elastic elastic;
-
-    @Part
-    private static Isenguard isenguard;
+    private String username;
 
     /**
-     * List of all {@link sirius.kernel.di.std.Register registered} {@link ChatBot chat bots} that can handle bot calls.
-     * <p>
-     * This list is automatically filled by the framework with all {@link ChatBot} implementation that are marked with
-     * the {@link sirius.kernel.di.std.Register} annotation. These can then be accessed by iterating the collection.
+     * Holds a reference to the implementation of {@link ChatUplink}.
      */
-    @Parts(ChatBot.class)
-    private static PartCollection<ChatBot> chatBots;
+    @Part
+    private static ChatUplink uplink;
 
     /**
      * Creates a new session for the given channel and request.
@@ -71,94 +36,75 @@ public class ChatSession extends WebsocketSession {
         super(webContext);
     }
 
+    /**
+     * Invoked for each incoming frame form the client side.
+     *
+     * @param webSocketFrame the frame to handle
+     */
     @Override
     public void onFrame(WebSocketFrame webSocketFrame) {
-        isenguard.enforceRateLimiting(CallContext.getNodeName(),
-                                      RATE_LIMIT_REALM_FRAME,
-                                      () -> new RateLimitingInfo(null, null, null));
-
+        // There are several frame types but we're only interested in text frames...
         if (webSocketFrame instanceof TextWebSocketFrame) {
-            String textFrame = ((TextWebSocketFrame) webSocketFrame).text();
-
-            JSONObject jsonObject = JSON.parseObject(textFrame);
-            String type = jsonObject.getString("type");
-            if ("hello".equals(type)) {
-                sendHelloMessage(jsonObject.getString(KEY_SENDER));
-            } else if (KEY_TEXT.equals(type)) {
-                redis.publish(chatSessionRegistry.getTopic(), textFrame);
-            }
-
-            // TODO:
-            // When a message of type "botcall" (KEY_BOT_CALL) is received it should be handled separately by first
-            // displaying the received message to the user and then calling tryHandleBotCall where the actual processing occurs.
-            // Doing so will handle bot calls locally (no other user sees the bot call and the response), in a second step
-            // you could try to broadcast the bot call and the bot responses via redis to all users.
+            onTextFrame(((TextWebSocketFrame) webSocketFrame).text());
         }
     }
 
     /**
-     * Greets the user.
+     * Invoked for each text frame received.
+     * <p>
+     * This will parse the received JSON and then dispatch to the appropriate handler.
      *
-     * @param userName the name of the user to greet
+     * @param text the received chat message
      */
-    private void sendHelloMessage(String userName) {
-        propagateMessageToUser(Strings.apply("Willkommen im sirius Chat, %s!", userName), "SKIP");
-    }
-
-    /**
-     * Takes a JSON message and processes it.
-     *
-     * @param message the message as JSON to process
-     */
-    public void recieveMessage(JSONObject message) {
-        try {
-            String messageText = message.getString(KEY_TEXT);
-            String sender = message.getString(KEY_SENDER);
-            storeMessage(messageText, sender);
-            propagateMessageToUser(messageText, sender);
-        } catch (Exception e) {
-            Exceptions.handle(e);
+    private void onTextFrame(String text) {
+        JSONObject messageObject = JSON.parseObject(text);
+        String type = messageObject.getString("type");
+        if ("hello".equals(type)) {
+            // This is the initial hello message from the client - handle appropriately
+            handleHelloMessage(messageObject);
+        } else if ("text".equals(type)) {
+            // This is a regular chat message...
+            handleChatMessage(ChatMessage.fromJSON(messageObject));
         }
     }
 
     /**
-     * Handles the provided bot call message by finding a responsible bot and passing it the message
-     * or displaying a fallback message to the user when no matching bot is found.
+     * Handles the "hello" message which is sent by the client just after connecting.
      *
-     * @param message the bot call message to handle (containing the message as property "text"
+     * @param messageObject the message which was received from the client
      */
-    private void tryHandleBotCall(JSONObject message) {
-        // TODO:
-        // Handle the incoming bot call (*message*) by finding a responsible bot from the *chatBots* collection
-        // (have a look at the *ChatBot* interface to see which method could be used for this.
-        // When a bot is found that can process the message pass it the message and a callback method for displaying the
-        // generated messages of the bot to the user (this could maybe also be a method reference from this class).
-        // When no matching bot is found display a message to the user explaining that the message could not be handled.
+    private void handleHelloMessage(JSONObject messageObject) {
+        // TODO CHALLENGE-0 fill the "username" field from the "sender" value in the given message object
+        // TODO send a message back to the user like "Welcome [username]..." with an artificial sender
+        // e.g. "server" or "Bot"....
     }
 
-    private void storeMessage(String messageText, String sender) {
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setText(messageText);
-        chatMessage.setSender(sender);
-        elastic.update(chatMessage);
+    /**
+     * Handles an incoming message.
+     *
+     * @param chatMessage the message which was received from the client
+     */
+    private void handleChatMessage(ChatMessage chatMessage) {
+        //TODO CHALLENGE-0 send the received message right back to the user connected to this websocket
+        //TODO CHALLENGE-1 forward the received message to the ChatUplink
     }
 
-    private void propagateMessageToUser(String text, String sender) {
-        JSONObject message = new JSONObject();
-        message.put(KEY_TEXT, text);
-        message.put(KEY_SENDER, sender);
-        sendMessage(message.toJSONString());
+    /**
+     * Sends a text message to the user connected to this web socket.
+     *
+     * @param chatMessage the message to send
+     */
+    public void sendToUser(ChatMessage chatMessage) {
+        sendMessage(chatMessage.toJSON().toJSONString());
     }
 
     @Override
     public void onWebsocketOpened() {
-        super.onWebsocketOpened();
-        chatSessionRegistry.registerNewSession(this);
+        //TODO CHALLENGE-1 notify the CHatSessionRegistry about this session
     }
 
     @Override
     public void onWebsocketClosed() {
-        super.onWebsocketClosed();
-        chatSessionRegistry.removeSession(this);
+        //TODO CHALLENGE-1 notify the CHatSessionRegistry about the end of this session
     }
 }

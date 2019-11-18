@@ -1,0 +1,26 @@
+// TODO CHALLENGE-2
+
+@Register(classes = {Subscriber.class, InterconnectHandler.class})
+public class ChatClusterUplink implements InterconnectHandler {
+
+    @Part
+    private Interconnect interconnect;
+
+    @Part
+    private ChatSessionRegistry chatSessionRegistry;
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "chat";
+    }
+
+    public void distributeChatMessage(ChatMessage message) {
+        interconnect.dispatch(getName(), message.toJSON());
+    }
+
+    @Override
+    public void handleEvent(JSONObject jsonObject) {
+        chatSessionRegistry.distributeMessage(ChatMessage.fromJSON(jsonObject));
+    }
+}

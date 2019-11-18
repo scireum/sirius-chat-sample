@@ -38,7 +38,7 @@ public class ChatClientController extends BizController {
     }
 
     /**
-     * Simple route that calls the pasta template containing the JavaScript cleint and provides it with some parameters.
+     * Simple route that calls the pasta template containing the JavaScript client and provides it with some parameters.
      *
      * @param webContext the context of the web request
      */

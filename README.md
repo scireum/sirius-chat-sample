@@ -103,8 +103,8 @@ This challenge gives a small glance at how a high availability system looks like
 of our chat app under a docker container, with a `traefik` container performing the load-balancing between them.
 
 To help with this challenge, you will need a docker image of our application. Just build one by executing:
-- Maven package (double-click the package lifecycle)
-- Switch to the `terminal` view of IntelliJ and run `docker build -t sirius-chat .`
+- Maven package (double-click the package Lifecycle)
+- Switch to the Terminal view of IntelliJ and run `docker build -t sirius-chat .`
 You can now optionally test the container by executing the [docker-compose.yml](ha/app/docker-compose.yml) file. Make sure to update
 the data for an existing Elasticsearch and Redis connections before issuing docker-compose up.
 If desired, another [docker-compose.yml](ha/central/docker-compose.yml) is available to start those for you.

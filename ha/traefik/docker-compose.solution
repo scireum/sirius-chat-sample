@@ -1,10 +1,4 @@
-version: '3'
-
-# Reference. https://docs.traefik.io/getting-started/quick-start/
-# 1. launch the traefik reverse-proxy with 'docker-compose up -d traefik'
-# 2. launch 2 instances of sirius-chat with 'docker-compose up -d --scale sirius-chat-sample=2'
-
-services:
+// TODO CHALLENGE-4:
   traefik:
     # The official v2.0 Traefik docker image
     image: traefik:v2.0
@@ -19,12 +13,11 @@ services:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
 
-# sirius-chat
   sirius-chat-sample:
     image: sirius-chat
     environment:
       - REDIS_HOST=CHANGE_ME
-      - REDIS_PORT=33001
-      - ES_HOST=CHANGE_ME:33002
+      - REDIS_PORT=CHANGE_ME
+      - ES_HOST=CHANGE_ME:CHANGE_ME
     labels:
     - "traefik.http.routers.sirius-chat-sample.rule=PathPrefix(`/`)"

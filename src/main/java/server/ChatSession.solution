@@ -1,0 +1,29 @@
+ // TODO CHALLENGE-0:
+private void handleHelloMessage(JSONObject messageObject) {
+    username = messageObject.getString("sender");
+    sendToUser(new ChatMessage(Strings.apply("Willkommen im sirius Chat, %s!", username), "SKIP"));
+}
+
+//TODO CHALLENGE-0:
+private void handleChatMessage(ChatMessage chatMessage) {
+    sendToUser(chatMessage);
+}
+
+//TODO CHALLENGE-1:
+
+@Part
+private static ChatSessionRegistry registry;
+
+private void handleChatMessage(ChatMessage chatMessage) {
+    uplink.distributeMessage(chatMessage);
+}
+
+@Override
+public void onWebsocketOpened() {
+    registry.registerNewSession(this);
+}
+
+@Override
+public void onWebsocketClosed() {
+    registry.removeSession(this);
+}

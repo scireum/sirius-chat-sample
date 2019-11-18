@@ -3,17 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!-- SIRIUS parent defines a default build process and also helps to setup IntelliJ.
+         Therefore it is recommended to run "mvn compile" at least once and let IntelliJ then
+         sync its settings. -->
     <parent>
         <groupId>com.scireum</groupId>
         <artifactId>sirius-parent</artifactId>
         <version>7.0.1</version>
     </parent>
+
     <artifactId>sirius-chat-sample</artifactId>
+    <!-- It is a common practice in our libraries and products to use this version. That way everyone can build
+         local releases which can be used to test and develop new features. A "real" version is auto-released
+         by our CI system once a git tag is set -->
     <version>DEVELOPMENT-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>SIRIUS chat sample</name>
-    
+
+    <!-- Defines the Maven repositories used by scireum as uploading to sonatype / mvn central is terribly slow... -->
     <repositories>
         <repository>
             <id>scireum-mvn</id>
@@ -28,21 +36,21 @@
     </pluginRepositories>
 
     <dependencies>
-        <dependency>
-            <groupId>com.typesafe</groupId>
-            <artifactId>config</artifactId>
-            <version>1.4.0</version>
-        </dependency>
+        <!-- Specifies which sirius-biz version to use. This will bring along sirius-web and sirius-db -->
         <dependency>
             <groupId>com.scireum</groupId>
             <artifactId>sirius-biz</artifactId>
             <version>13.0-rc56</version>
         </dependency>
+
+        <!-- Specifies exactly which sirius-kernel version we want to use. -->
         <dependency>
             <groupId>com.scireum</groupId>
             <artifactId>sirius-kernel</artifactId>
             <version>13.18</version>
         </dependency>
+
+        <!-- Adds parsii - a high speed expression evaluator - as dependency -->
         <dependency>
             <groupId>com.scireum</groupId>
             <artifactId>parsii</artifactId>

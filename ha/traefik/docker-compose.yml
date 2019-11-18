@@ -8,23 +8,11 @@ services:
   traefik:
     # The official v2.0 Traefik docker image
     image: traefik:v2.0
-    # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=true --providers.docker
-    ports:
-      # The HTTP port
-      - "80:80"
-      # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
-    volumes:
-      # So that Traefik can listen to the Docker events
-      - /var/run/docker.sock:/var/run/docker.sock
+    # Add a configuration pretty much like the reverse-proxy from the reference
 
-# sirius-chat
+  # sirius-chat
   sirius-chat-sample:
+    # The sirius-chat image built with the provided Dockerfile
     image: sirius-chat
-    environment:
-      - REDIS_HOST=192.168.1.202
-      - REDIS_PORT=33001
-      - ES_HOST=192.168.1.202:33002
-    labels:
-    - "traefik.http.routers.sirius-chat-sample.rule=PathPrefix(`/`)"
+    # Add a configuration for the sirius-chat image
+    # Hint: traefik.http.routers.sirius-chat-sample.rule=PathPrefix(`/`)

@@ -163,3 +163,9 @@ which is used to actually render the search output [search.html.pasta](src/main/
 To ingest data into Elastic, jump to the [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) and
 implement the TODOs in **distributeMessage**. After restarting the debugger, new chat message should be
 visible in the search UI. 
+
+
+### Docker Toolbox
+
+https://github.com/docker/toolbox/releases
+https://docs.docker.com/toolbox/toolbox_install_windows/

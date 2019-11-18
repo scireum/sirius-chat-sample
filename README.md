@@ -12,16 +12,16 @@ quests which provide some functionality but can also be skipped.
 
 SIRIUS is split up into distinct modules to provide a broad range of use-cases.
 The modules are:
-* https://github.com/scireum/sirius-kernel - Contains common code and especially the dependency injector
-* https://github.com/scireum/sirius-web - Contains the the web server along with **Tagliatelle** which is our template engine
-* https://github.com/scireum/sirius-db - Contains a persistence framework which helps to manage JDBC datasources, MongoDB, Elasticsearch or Redis
+* https://github.com/scireum/sirius-kernel - Contains common code and especially the [dependency injector](https://github.com/scireum/sirius-kernel/tree/master/src/main/java/sirius/kernel/di)
+* https://github.com/scireum/sirius-web - Contains the the web server along with [**Tagliatelle**](https://github.com/scireum/sirius-web/tree/master/src/main/java/sirius/tagliatelle) which is our template engine
+* https://github.com/scireum/sirius-db - Contains a persistence framework which helps to manage [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/) datasources, [MongoDB](https://docs.mongodb.com/), [Elasticsearch](https://www.elastic.co/guide/index.html) or [Redis](https://redis.io/documentation)
 * https://github.com/scireum/sirius-biz - Contains a lot of high level frameworks which help to built cloud native business applications
 
 ## Setup
 
 To save some time, the project is already setup and also contains some scaffolding for the
-challenges. This project can be built using **Apache Maven** and should be developed using
-**Jetbrains IntelliJ IDEA**.
+challenges. This project can be built using [**Apache Maven**](https://maven.apache.org/) and should be developed using
+[**Jetbrains IntelliJ IDEA**](https://www.jetbrains.com/idea/download/).
 
 To understand the inner workings first have a look at the [pom.xml](pom.xml) which tells
 maven how to build this project. Then consult the [src/resources/application.conf](src/resources/application.conf)
@@ -47,7 +47,7 @@ to discover all classpath roots which participate in the SIRIUS system.
 
 Ok, we're almost good to go. Before diving into the first challenge, start a Debugger using the
 **SERVER** run configuration to make sure that the base system is operational. This will start
-a **Docker** container for **Redis** and one for **Elasticsearch** which are required for later
+a [**Docker**](https://docs.docker.com/) container for [**Redis**](https://redis.io/documentation) and one for [**Elasticsearch**](https://www.elastic.co/guide/index.html) which are required for later
 challenges (the stack is configured in [docker-compose.yml](docker-compose.yml)). Once a message
 like `System is UP and RUNNING` appears in the console, you should be able to view the chat UI: http://localhost:9000
 Note that you can also have a look at the system state via http://localhost:9000/system/state and

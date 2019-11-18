@@ -8,11 +8,11 @@ services:
   traefik:
     # The official v2.0 Traefik docker image
     image: traefik:v2.0
-    # Add a configuration pretty much like the reverse-proxy from the reference
+    # TODO Add a configuration pretty much like the reverse-proxy from the reference
 
   # sirius-chat
   sirius-chat-sample:
     # The sirius-chat image built with the provided Dockerfile
     image: sirius-chat
-    # Add a configuration for the sirius-chat image
+    # TODO Add a configuration for the sirius-chat image
     # Hint: traefik.http.routers.sirius-chat-sample.rule=PathPrefix(`/`)

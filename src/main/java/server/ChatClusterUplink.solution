@@ -1,6 +1,6 @@
 // TODO CHALLENGE-2
 
-@Register(classes = {Subscriber.class, InterconnectHandler.class})
+@Register
 public class ChatClusterUplink implements InterconnectHandler {
 
     @Part

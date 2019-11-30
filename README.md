@@ -20,6 +20,16 @@ The modules are:
 * https://github.com/scireum/sirius-db - Contains a persistence framework which helps to manage [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/) datasources, [MongoDB](https://docs.mongodb.com/), [Elasticsearch](https://www.elastic.co/guide/index.html) or [Redis](https://redis.io/documentation)
 * https://github.com/scireum/sirius-biz - Contains a lot of high level frameworks which help to built cloud native business applications
 
+## Pre-Requisites
+
+You should have the following Software stack installed in order to execute these challenges:
+
+* Java JDK 8 - [OpenJDK](https://openjdk.java.net/install/) or [Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [git](https://git-scm.com/downloads)
+* [IntelliJ Idea](https://www.jetbrains.com/idea/)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) *registration needed*.
+    * Alternative for some Windows systems uncapable of running Docker Desktop: [Docker ToolBox](https://docs.docker.com/toolbox/)
+
 ## Introduction
 
 To save some time, the project is already setup and also contains some scaffolding for the
@@ -163,10 +173,3 @@ which is used to actually render the search output [search.html.pasta](src/main/
 To ingest data into Elastic, jump to the [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) and
 implement the TODOs in **distributeMessage**. After restarting the debugger, new chat message should be
 visible in the search UI. 
-
-
-### Docker Toolbox
-
-This is an alternative Docker Installer for Windows, if you are having trouble installing the official Docker distribution:
-https://github.com/docker/toolbox/releases
-https://docs.docker.com/toolbox/toolbox_install_windows/

@@ -20,7 +20,7 @@ The modules are:
 * https://github.com/scireum/sirius-db - Contains a persistence framework which helps to manage [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/) datasources, [MongoDB](https://docs.mongodb.com/), [Elasticsearch](https://www.elastic.co/guide/index.html) or [Redis](https://redis.io/documentation)
 * https://github.com/scireum/sirius-biz - Contains a lot of high level frameworks which help to built cloud native business applications
 
-## Setup
+## Introduction
 
 To save some time, the project is already setup and also contains some scaffolding for the
 challenges. This project can be built using [**Apache Maven**](https://maven.apache.org/) and should be developed using
@@ -48,7 +48,7 @@ to discover all classpath roots which participate in the SIRIUS system.
 
 ## Challenges
 
-Ok, we're almost good to go. Before diving into the first challenge, start a Debugger using the run configuration created above to make sure that the base system is operational. This will start
+Ok, we're almost good to go. Before diving into the first challenge, start a Debugger using the **Setup** run configuration to make sure that the base system is operational. This will start
 a [**Docker**](https://docs.docker.com/) container for [**Redis**](https://redis.io/documentation) and one for [**Elasticsearch**](https://www.elastic.co/guide/index.html) which are required for later
 challenges (the stack is configured in [docker-compose.yml](docker-compose.yml)). Once a message
 like `System is UP and RUNNING` appears in the console, you should be able to view the chat UI: http://localhost:9000
@@ -100,11 +100,11 @@ Now is time to package and create a container for our application.
 In real life, apps do not run under IDEs ;-)
 
 Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and execute the following command:
- `docker build -t sirius-chat .` using the provided [Dockerfile](Dockerfile)
+ `docker build --rm -t sirius-chat .` from the project's root, using the provided [Dockerfile](Dockerfile)
 
-Now you can launch the application container. You will find a [docker-compose.yml](ha/app/docker-compose.yml) file ready to rock & roll.
-Just adjust the values for the desired Elasticsearch and Redis DBs, and from the directory hosting the file 
-execute `docker-compose -d up`. After started it should be available at the http://localhost:80.
+Now you can launch the application container. You will find a [ha/app/docker-compose.yml](ha/app/docker-compose.yml) file ready to rock & roll.
+Just adjust the values to the target Elasticsearch and Redis DBs your container should connect to, and **from the directory** hosting the file 
+execute `docker-compose up -d`. After started, the application should be available at http://localhost.
 
 To stop it, run `docker-compose down`
 
@@ -116,7 +116,7 @@ of our chat app under a docker container, with a `traefik` container performing 
 Read the Quick Start Guide at [traefik.io](https://docs.traefik.io/getting-started/quick-start/) and fill up the 
 [docker-compose.yml](ha/traefik/docker-compose.yml) file in in order to setup a load-balancer for our chat.
 To start traefik: `docker-compose up -d traefik`
-To start 2 instances of the sirius-chat: `docker-compose up -d scale --sirius-chat-sample=2`
+To start 2 instances of the sirius-chat: `docker-compose up -d --scale sirius-chat-sample=2`
 
 ### Side-Quest: Chat-Bots (CHALLENGE-5)
 

@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Setup" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="sirius.kernel.Setup" />
+    <module name="sirius-chat-sample" />
+    <option name="VM_PARAMETERS" value="-Ddebug=true -Dide=true" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

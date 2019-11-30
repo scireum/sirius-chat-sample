@@ -1,4 +1,4 @@
-//TODO CHALLENGE-1
+//TODO CHALLENGE-2
 
 private List<ChatSession> chatSessions = Collections.synchronizedList(new ArrayList<>());
 
@@ -18,7 +18,7 @@ public void distributeMessage(ChatMessage message) {
     getAllSessions().forEach(session -> session.sendToUser(message));
 }
 
-//TODO CHALLENGE-7
+//TODO SIDE-QUEST-4
 
 @Part
 private Elastic elastic;

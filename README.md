@@ -55,11 +55,11 @@ like `System is UP and RUNNING` appears in the console, you should be able to vi
 Note that you can also have a look at the system state via http://localhost:9000/system/state and
 even monitor some details via http://localhost:9000/system/console (e.g. by executing the `http` command). 
 
-Note that each challenge has a unique ID (like CHALLENGE-0). You can search in all files ("Find in Path")
+Note that each challenge has a unique ID (like CHALLENGE-1). You can search in all files ("Find in Path")
 using this ID to spot all relevant code positions. You will also find the appropriate .solutions file
 which will assist in case you're in trouble :-P
 
-### Hello World (CHALLENGE-0)
+### Hello World (CHALLENGE-1)
 
 The first step is to make the server respond to incoming chat messages. These messages will
 simply be sent back to the client. But first, let's find out where the client comes from. Head
@@ -76,7 +76,7 @@ to the session class to read the provided docs and finally to start some coding 
 
 Once the challenge is completed, you should be able to chat with yourself. :)
 
-### Hello Everyone (CHALLENGE-1)
+### Hello Everyone (CHALLENGE-2)
 
 For the second challenge, head to [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) and
 implement the missing parts. Then switch to [ChatSession](src/main/java/server/ChatSession.java) to call
@@ -85,7 +85,7 @@ the appropriate methods.
 Once this is all done, restart the Debugger and open two or more tabs. You should now be able to chat
 with each other.
 
-### Hello HA (CHALLENGE-2)
+### Hello HA (CHALLENGE-3)
 
 The third challenge starts by completing the [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java).
 Once this is done, change the [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) as noted
@@ -94,7 +94,7 @@ in the JavaDoc.
 After restarting the server, the chat should continue to work. Now if you specify a shared Redis server in
 [develop.conf](develop.conf) you should be able to share your chat with other machines.
 
-### Ahoi World (CHALLENGE-3)
+### Ahoi World (CHALLENGE-4)
 
 Now is time to package and create a container for our application.
 In real life, apps do not run under IDEs ;-)
@@ -108,7 +108,7 @@ execute `docker-compose up -d`. After started, the application should be availab
 
 To stop it, run `docker-compose down`
 
-### Side-Quest: HA-Setup (CHALLENGE-4)
+### Side-Quest: HA-Setup (SIDE-QUEST-1)
 
 This challenge gives a small glance at how a high availability system looks like. The goal is to start 2 or more instances
 of our chat app under a docker container, with a `traefik` container performing the load-balancing between them.
@@ -118,7 +118,7 @@ Read the Quick Start Guide at [traefik.io](https://docs.traefik.io/getting-start
 To start traefik: `docker-compose up -d traefik`
 To start 2 instances of the sirius-chat: `docker-compose up -d --scale sirius-chat-sample=2`
 
-### Side-Quest: Chat-Bots (CHALLENGE-5)
+### Side-Quest: Chat-Bots (SIDE-QUEST-2)
 
 To add chat bots, have a look at the [ChatBot](src/main/java/bots/ChatBot.java) interface and the two
 examples ([HelpBot](src/main/java/bots/HelpBot.java), [CalcBot](src/main/java/bots/CalcBot.java)).
@@ -131,7 +131,7 @@ Once that works, make sure to have some fun by either modifying the existing bot
 Maybe add a command to report how many people are in the chat, or when user X wrote the last message 
 (both would require to extend ChatSessionRegistry a bit).
 
-### Side-Quest: Rate-Limiting (CHALLENGE-6)
+### Side-Quest: Rate-Limiting (SIDE-QUEST-3)
 
 Now that our precious chat server is running, we need to protect it from the cruel outside world.
 sirius-biz provides a simple but effective firewall which relies on redis to ensure some rate limiting
@@ -149,7 +149,7 @@ provides a bunch of additional methods. You can use **Isenguard.isRateLimitReach
 that someone reached its limit. Or you can provide a custom ChatBot which reveals the current limit status
 for the caller by using **Isenguard.getRateLimitInfo**.
 
-### Side-Quest: Search (CHALLENGE-7) 
+### Side-Quest: Search (SIDE-QUEST-4) 
 
 Searching and sorting is all that computers do :) Therefore we also want to provide a way to search
 in the history of our chat room. Luckily, sirius-biz and sirius-db provide connectivity to all sorts
@@ -167,7 +167,6 @@ visible in the search UI.
 
 ### Docker Toolbox
 
+This is an alternative Docker Installer for Windows, if you are having trouble installing the official Docker distribution:
 https://github.com/docker/toolbox/releases
-
-
 https://docs.docker.com/toolbox/toolbox_install_windows/

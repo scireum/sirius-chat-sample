@@ -1,15 +1,15 @@
- // TODO CHALLENGE-0:
+ // TODO CHALLENGE-1:
 private void handleHelloMessage(JSONObject messageObject) {
     username = messageObject.getString("sender");
     sendToUser(new ChatMessage(Strings.apply("Willkommen im sirius Chat, %s!", username), "SKIP"));
 }
 
-//TODO CHALLENGE-0:
+//TODO CHALLENGE-1:
 private void handleChatMessage(ChatMessage chatMessage) {
     sendToUser(chatMessage);
 }
 
-//TODO CHALLENGE-1:
+//TODO CHALLENGE-2:
 
 @Part
 private static ChatSessionRegistry registry;
@@ -28,7 +28,7 @@ public void onWebsocketClosed() {
     registry.removeSession(this);
 }
 
-//TODO CHALLENGE-5:
+//TODO SIDE-QUEST-2:
 
 @Parts(ChatBot.class)
 private static Collection<ChatBot> chatBots;
@@ -41,7 +41,7 @@ if (bot.isPresent()) {
     uplink.distributeMessage(chatMessage);
 }
 
-//TODO CHALLENGE-6
+//TODO SIDE-QUEST-3
 @Part
 private static Isenguard isenguard;
 

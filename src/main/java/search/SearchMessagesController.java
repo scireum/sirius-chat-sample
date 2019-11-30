@@ -24,7 +24,7 @@ public class SearchMessagesController extends BizController {
     @DefaultRoute
     @Routed("/search")
     public void search(WebContext webContext) {
-        //TODO CHALLENGE-7 search requests are handled here and mostly just forwarded to Elasticsearch
+        //TODO SIDE-QUEST-4 search requests are handled here and mostly just forwarded to Elasticsearch
         Page<SearchableChatMessage> chatMessagePage =
                 ElasticPageHelper.withQuery(elastic.select(SearchableChatMessage.class).orderDesc(SearchableChatMessage.SEND_AT))
                                  .withContext(webContext)

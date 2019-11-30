@@ -42,7 +42,7 @@ public class ChatClientController extends BizController {
     @DefaultRoute
     @Routed("/chat")
     public void client(WebContext webContext) {
-        // TODO CHALLENGE-6, here is an example of Isenguard...
+        // TODO SIDE-QUEST-3, here is an example of Isenguard...
         isenguard.enforceRateLimiting(
                 // We limit per remote IP address
                 webContext.getRemoteIP().toString(),

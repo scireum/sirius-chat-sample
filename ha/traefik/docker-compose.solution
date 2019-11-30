@@ -1,4 +1,4 @@
-// TODO CHALLENGE-4:
+// TODO SIDE-QUEST-1:
   traefik:
     # The official v2.0 Traefik docker image
     image: traefik:v2.0

@@ -1,4 +1,4 @@
-// TODO CHALLENGE-2
+// TODO CHALLENGE-3
 
 @Register
 public class ChatClusterUplink implements InterconnectHandler {

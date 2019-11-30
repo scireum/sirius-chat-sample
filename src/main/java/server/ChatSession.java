@@ -75,7 +75,7 @@ public class ChatSession extends WebsocketSession {
      * @param messageObject the message which was received from the client
      */
     private void handleHelloMessage(JSONObject messageObject) {
-        // TODO CHALLENGE-0 fill the "username" field from the "sender" value in the given message object
+        // TODO CHALLENGE-1 fill the "username" field from the "sender" value in the given message object
         // TODO send a message back to the user like "Welcome [username]..." with an artificial sender
         // e.g. "server" or "Bot"....
 
@@ -89,16 +89,16 @@ public class ChatSession extends WebsocketSession {
      * @param chatMessage the message which was received from the client
      */
     private void handleChatMessage(ChatMessage chatMessage) {
-        //TODO CHALLENGE-0 send the received message right back to the user connected to this websocket
-        //TODO CHALLENGE-1 forward the received message to the ChatUplink
+        //TODO CHALLENGE-1 send the received message right back to the user connected to this websocket
+        //TODO CHALLENGE-2 forward the received message to the ChatUplink
 
         // Feel free to play around here - censor curse words / replace emoji by their unicode code points or the like...
 
-        //TODO CHALLENGE-5 - get hold of all available {@link ChatBot} implementations by using a @Parts annotation
+        //TODO SIDE-QUEST-2 - get hold of all available {@link ChatBot} implementations by using a @Parts annotation
         // on a static List<ChatBot> field.
         // Iterate over all bots while they return false and finally distribute the message
 
-        //TODO CHALLENGE-6 Enforce rate limiting
+        //TODO SIDE-QUEST-3 Enforce rate limiting
     }
 
     /**
@@ -112,12 +112,12 @@ public class ChatSession extends WebsocketSession {
 
     @Override
     public void onWebsocketOpened() {
-        //TODO CHALLENGE-1 notify the CHatSessionRegistry about this session
-        //TODO CHALLENGE-6 Enforce rate limiting
+        //TODO CHALLENGE-2 notify the CHatSessionRegistry about this session
+        //TODO SIDE-QUEST-3 Enforce rate limiting
     }
 
     @Override
     public void onWebsocketClosed() {
-        //TODO CHALLENGE-1 notify the CHatSessionRegistry about the end of this session
+        //TODO CHALLENGE-2 notify the CHatSessionRegistry about the end of this session
     }
 }

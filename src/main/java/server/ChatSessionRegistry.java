@@ -11,11 +11,11 @@ import java.util.List;
 /**
  * A registry of all currently open {@link ChatSession}s.
  */
-//TODO CHALLENGE-2 only remove the ChatUplink class from the register annotation
+//TODO CHALLENGE-3 only remove the ChatUplink class from the register annotation
 @Register(classes = {ChatSessionRegistry.class, ChatUplink.class})
 public class ChatSessionRegistry implements ChatUplink {
 
-    // TODO CHALLENGE-1
+    // TODO CHALLENGE-2
     // TODO keep a list of all active sessions (wrap it using Collections.synchronizedList to make it threadsafe)
     // TODO Provide methods to add or remove a session
 
@@ -23,7 +23,7 @@ public class ChatSessionRegistry implements ChatUplink {
     public void distributeMessage(ChatMessage message) {
         // TODO Call the "sendToUser" for all available messages..
 
-        // TODO CHALLENGE-7 - create a new instance of SearchableChatMessage
+        // TODO SIDE-QUEST-4 - create a new instance of SearchableChatMessage
         // TODO use @Part to obtain the database connector "Elastic" which can insert entities into Elasticsearch.
         // TODO invoke elastic.update to persist the entity in Elasticsearch....
     }

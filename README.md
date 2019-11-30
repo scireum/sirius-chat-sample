@@ -24,11 +24,20 @@ The modules are:
 
 You should have the following Software stack installed in order to execute these challenges:
 
-* Java JDK 8 - [OpenJDK](https://openjdk.java.net/install/) or [Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* Java JDK 8 *recommended*- [OpenJDK](https://openjdk.java.net/install/) or [Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [git](https://git-scm.com/downloads)
 * [IntelliJ Idea](https://www.jetbrains.com/idea/)
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) *registration needed*.
     * Alternative for some Windows systems uncapable of running Docker Desktop: [Docker ToolBox](https://docs.docker.com/toolbox/)
+* [docker-compose](https://docs.docker.com/compose/install/) version 1.24.1
+
+Once everything is installed, launch IntelliJ and choose to create a New Project from Version Control, and give the official Github URL for this project:
+
+https://github.com/scireum-incubator/sirius-chat-sample.git
+
+**Important**
+
+A Popup will show up suggesting to Import as a Maven Project. Click **Import** or enable the Auto-Import option.
 
 ## Introduction
 

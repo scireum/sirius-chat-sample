@@ -35,7 +35,7 @@ Once everything is installed, launch IntelliJ and choose to create a New Project
 
 https://github.com/scireum-incubator/sirius-chat-sample.git
 
-> **_Note:_** A Popup will show up suggesting to Import as a Maven Project. Click **Import** or enable the Auto-Import option.
+> **_Note:_** A Popup will show up suggesting to Import as a Maven Project. Click **Import** and/or enable the Auto-Import option.
 
 ## Introduction
 
@@ -186,4 +186,4 @@ visible in the search UI.
 
 ---
 
-Made with all the :heart: in the world by [scireum](scireum.de) in Remshalden.
+Made with all the :heart: in the world by [scireum](https://scireum.de) in Remshalden.

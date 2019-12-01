@@ -9,7 +9,7 @@ into challenges - some build up onto each other, others are more like side
 quests which provide some functionality but can also be skipped.
 
 Also feel free to have a look around, place breakpoints, figure out how
-the surrounding framework works and most importantly **HAVE FUN** :)
+the surrounding framework works and most importantly **HAVE FUN** :smile:
 
 ## SIRIUS
 
@@ -74,7 +74,7 @@ even monitor some details via http://localhost:9000/system/console (e.g. by exec
 
 > **_Hint:_** Each challenge has a unique ID (such as CHALLENGE-1). You can search in all files ("Find in Path")
 using this ID to spot all relevant code positions. You will also find the appropriate `Class.solution` file
-which will assist in case you're in trouble :-P
+which will assist in case you're in trouble :wink:
 
 ### Hello World (CHALLENGE-1)
 
@@ -89,9 +89,9 @@ frames. (You can review the client code required to open a web socket in JavaScr
 not required for our challenge - [client.js](src/main/resources/assets/client/client.js)). For each
 web socket being connected, the [WebSocketDispatcher](src/main/java/server/WebSocketDispatcher.java)
 will detect this and initialize a [ChatSession](src/main/java/server/ChatSession.java). Head over
-to the session class to read the provided docs and finally to start some coding :)
+to the session class to read the provided docs and finally to start some coding :smile:
 
-Once the challenge is completed, you should be able to chat with yourself. :)
+Once the challenge is completed, you should be able to chat with yourself. :clap:
 
 ### Hello Everyone (CHALLENGE-2)
 
@@ -100,7 +100,7 @@ implement the missing parts. Then switch to [ChatSession](src/main/java/server/C
 the appropriate methods.
 
 Once this is all done, restart the Debugger and open two or more tabs. You should now be able to chat
-with each other.
+with each other. :clap:
 
 ### Hello HA (CHALLENGE-3)
 
@@ -109,19 +109,19 @@ Once this is done, change the [ChatSessionRegistry](src/main/java/server/ChatSes
 in the JavaDoc.
 
 After restarting the server, the chat should continue to work. Now if you specify a shared Redis server in
-[develop.conf](develop.conf) you should be able to share your chat with other machines.
+[develop.conf](develop.conf) you should be able to share your chat with other machines. :clap:
 
 ### Ahoi World (CHALLENGE-4)
 
 Now is time to package and create a container for our application.
-In real life, apps do not run under IDEs ;-)
+In real life, apps do not run under IDEs :stuck_out_tongue:
 
 Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and execute the following command:
  `docker build --rm -t sirius-chat .` from the project's root, using the provided [Dockerfile](Dockerfile)
 
 Now you can launch the application container. You will find a [ha/app/docker-compose.yml](ha/app/docker-compose.yml) file ready to rock & roll.
 Just adjust the values to the target Elasticsearch and Redis DBs your container should connect to, and **from the directory** hosting the file 
-execute `docker-compose up -d`. After started, the application should be available at http://localhost.
+execute `docker-compose up -d`. After started, the application should be available at http://localhost. :clap:
 
 To stop it, run `docker-compose down`
 
@@ -135,6 +135,9 @@ Read the Quick Start Guide at [traefik.io](https://docs.traefik.io/getting-start
 To start traefik: `docker-compose up -d traefik`
 To start 2 instances of the sirius-chat: `docker-compose up -d --scale sirius-chat-sample=2`
 
+Now when browsing the application via http://localhost, you should be able to stop one of the containes on-the-fly
+and still be able to chat as you will be automatically sent to another running host! :v:
+
 ### Side-Quest: Chat-Bots (SIDE-QUEST-2)
 
 To add chat bots, have a look at the [ChatBot](src/main/java/bots/ChatBot.java) interface and the two
@@ -146,7 +149,7 @@ there already).
 
 Once that works, make sure to have some fun by either modifying the existing bots or by providing your own.
 Maybe add a command to report how many people are in the chat, or when user X wrote the last message 
-(both would require to extend ChatSessionRegistry a bit).
+(both would require to extend ChatSessionRegistry a bit). :v:
 
 ### Side-Quest: Rate-Limiting (SIDE-QUEST-3)
 
@@ -168,7 +171,7 @@ for the caller by using **Isenguard.getRateLimitInfo**.
 
 ### Side-Quest: Search (SIDE-QUEST-4) 
 
-Searching and sorting is all that computers do :) Therefore we also want to provide a way to search
+Searching and sorting is all that computers do :smile: Therefore we also want to provide a way to search
 in the history of our chat room. Luckily, sirius-biz and sirius-db provide connectivity to all sorts
 of databases (MariaDB, MongoDB, Elasticsearch). The latter is interesting for us, as it provides a
 complete fulltext search engine out of the box. Have a look at [SearchableChatMessage](src/main/java/search/SearchableChatMessage.java)
@@ -180,3 +183,7 @@ which is used to actually render the search output [search.html.pasta](src/main/
 To ingest data into Elastic, jump to the [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) and
 implement the TODOs in **distributeMessage**. After restarting the debugger, new chat message should be
 visible in the search UI. 
+
+---
+
+Made with all the :heart: in the world by [scireum](scireum.de) in Remshalden.

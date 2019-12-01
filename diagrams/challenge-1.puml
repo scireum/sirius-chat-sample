@@ -1,0 +1,46 @@
+@startuml
+skinparam handwritten true
+skinparam monochrome true
+skinparam ArrowColor gray
+skinparam DefaultFontSize 10
+skinparam Note {
+    FontName Courier
+    FontColor white
+    BackGroundColor gray
+}
+skinparam Sequence {
+    DividerFontStyle normal
+    DividerBorderThickness 1
+    DividerBorderColor lightgray
+}
+
+hide footbox
+actor user
+
+==init==
+user -> ChatClientController: localhost:9000
+user <-ChatClientController: name.html.pasta
+
+==chat session==
+user -> ChatClientController: localhost:9000/chat?username=
+user <- ChatClientController: client.html.pasta
+activate user
+user -> WebSocketDispatcher: ws://localhost:9000/websocket
+deactivate user
+activate WebSocketDispatcher
+WebSocketDispatcher -> ChatSession: new ChatSession()
+rnote over ChatSession: sendToUser()
+WebSocketDispatcher <- ChatSession
+user <- WebSocketDispatcher: sendMessage()
+deactivate WebSocketDispatcher
+
+==conversation==
+user -> WebSocketDispatcher: ws://localhost:9000/websocket
+activate WebSocketDispatcher
+WebSocketDispatcher -> ChatSession
+rnote over ChatSession: handleChatMessage()
+WebSocketDispatcher <- ChatSession
+user <- WebSocketDispatcher: sendMessage()
+deactivate WebSocketDispatcher
+
+@enduml

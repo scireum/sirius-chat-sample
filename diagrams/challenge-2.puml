@@ -1,0 +1,42 @@
+@startuml
+skinparam handwritten true
+skinparam monochrome true
+skinparam ArrowColor gray
+skinparam DefaultFontSize 10
+skinparam Note {
+    FontName Courier
+    FontColor white
+    BackGroundColor gray
+}
+skinparam Sequence {
+    DividerFontStyle normal
+    DividerBorderThickness 1
+    DividerBorderColor lightgray
+}
+
+hide footbox
+actor user
+
+==connect chat session==
+user -> ChatSession: localhost:9000/chat?username=
+ChatSession -> ChatSessionRegistry: onWebsocketOpened()
+rnote over ChatSessionRegistry: registerNewSession()
+
+==disconnect chat session==
+user -> ChatSession: localhost:9000/chat?username=
+ChatSession -> ChatSessionRegistry: onWebsocketClosed()
+rnote over ChatSessionRegistry: removeSession()
+
+==conversation==
+user -> ChatSession: ws://localhost:9000/websocket
+rnote over ChatSession: handleChatMessage()
+ChatSession -> ChatUpLink
+ChatUpLink -> ChatSessionRegistry: distributeMessage()
+activate ChatSessionRegistry
+rnote over ChatSessionRegistry: distributeMessage()
+ChatSession <- ChatSessionRegistry: sendToUser(1)
+ChatSession <-- ChatSessionRegistry: sendToUser(2)
+ChatSession <-- ChatSessionRegistry: sendToUser(n)
+deactivate ChatSessionRegistry
+
+@enduml

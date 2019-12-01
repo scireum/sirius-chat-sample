@@ -21,7 +21,7 @@ public class ChatSessionRegistry implements ChatUplink {
 
     @Override
     public void distributeMessage(ChatMessage message) {
-        // TODO Call the "sendToUser" for all available messages..
+        // TODO CHALLENGE-2 Call the "sendToUser" for all available messages..
 
         // TODO SIDE-QUEST-4 - create a new instance of SearchableChatMessage
         // TODO use @Part to obtain the database connector "Elastic" which can insert entities into Elasticsearch.

@@ -35,9 +35,7 @@ Once everything is installed, launch IntelliJ and choose to create a New Project
 
 https://github.com/scireum-incubator/sirius-chat-sample.git
 
-**Important**
-
-A Popup will show up suggesting to Import as a Maven Project. Click **Import** or enable the Auto-Import option.
+> **_Note:_** A Popup will show up suggesting to Import as a Maven Project. Click **Import** or enable the Auto-Import option.
 
 ## Introduction
 
@@ -46,7 +44,7 @@ challenges. This project can be built using [**Apache Maven**](https://maven.apa
 [**Jetbrains IntelliJ IDEA**](https://www.jetbrains.com/idea/download/).
 
 To understand the inner workings first have a look at the [pom.xml](pom.xml) which tells
-maven how to build this project. Then consult the [src/resources/application.conf](src/resources/application.conf)
+maven how to build this project. Then consult the [src/main/resources/application.conf](src/main/resources/application.conf)
 and [develop.conf](develop.conf) to understand the configuration of the application itself
 as well as the developer config which is used when starting the application locally.
 
@@ -60,7 +58,7 @@ Speaking of which, SIRIUS applications can be started using a Java Application R
 - Main Class: `sirius.kernel.Setup`
 - VM Options:`-Ddebug=true -Dide=true`
 
-Note one more very important file (**src/resources/component.marker**). Although this file
+> **_Note:_** one more very important file (**src/resources/component.marker**). Although this file
 is empty, is it essential, as it is used by the [Classpath](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/Classpath.java)
 scanner of the [Dependency Injector](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/di/Injector.java)
 to discover all classpath roots which participate in the SIRIUS system.
@@ -71,11 +69,11 @@ Ok, we're almost good to go. Before diving into the first challenge, start a Deb
 a [**Docker**](https://docs.docker.com/) container for [**Redis**](https://redis.io/documentation) and one for [**Elasticsearch**](https://www.elastic.co/guide/index.html) which are required for later
 challenges (the stack is configured in [docker-compose.yml](docker-compose.yml)). Once a message
 like `System is UP and RUNNING` appears in the console, you should be able to view the chat UI: http://localhost:9000
-Note that you can also have a look at the system state via http://localhost:9000/system/state and
+> **_Note:_** you can also have a look at the system state via http://localhost:9000/system/state and
 even monitor some details via http://localhost:9000/system/console (e.g. by executing the `http` command). 
 
-Note that each challenge has a unique ID (like CHALLENGE-1). You can search in all files ("Find in Path")
-using this ID to spot all relevant code positions. You will also find the appropriate .solutions file
+> **_Hint:_** Each challenge has a unique ID (such as CHALLENGE-1). You can search in all files ("Find in Path")
+using this ID to spot all relevant code positions. You will also find the appropriate `Class.solution` file
 which will assist in case you're in trouble :-P
 
 ### Hello World (CHALLENGE-1)

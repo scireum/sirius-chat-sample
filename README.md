@@ -58,7 +58,7 @@ Speaking of which, SIRIUS applications can be started using a Java Application R
 - Main Class: `sirius.kernel.Setup`
 - VM Options:`-Ddebug=true -Dide=true`
 
-> **_Note:_** one more very important file (**src/resources/component.marker**). Although this file
+> **_Note:_** one more very important file (**src/main/resources/component.marker**). Although this file
 is empty, is it essential, as it is used by the [Classpath](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/Classpath.java)
 scanner of the [Dependency Injector](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/di/Injector.java)
 to discover all classpath roots which participate in the SIRIUS system.

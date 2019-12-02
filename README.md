@@ -15,10 +15,10 @@ the surrounding framework works and most importantly **HAVE FUN** :smile:
 
 SIRIUS is split up into distinct modules to provide a broad range of use-cases.
 The modules are:
-* https://github.com/scireum/sirius-kernel - Contains common code and especially the [dependency injector](https://github.com/scireum/sirius-kernel/tree/master/src/main/java/sirius/kernel/di)
-* https://github.com/scireum/sirius-web - Contains the the web server along with [**Tagliatelle**](https://github.com/scireum/sirius-web/tree/master/src/main/java/sirius/tagliatelle) which is our template engine
-* https://github.com/scireum/sirius-db - Contains a persistence framework which helps to manage [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/) datasources, [MongoDB](https://docs.mongodb.com/), [Elasticsearch](https://www.elastic.co/guide/index.html) or [Redis](https://redis.io/documentation)
-* https://github.com/scireum/sirius-biz - Contains a lot of high level frameworks which help to built cloud native business applications
+* [sirius-kernel](https://github.com/scireum/sirius-kernel) - Contains common code and especially the [dependency injector](https://github.com/scireum/sirius-kernel/tree/master/src/main/java/sirius/kernel/di)
+* [sirius-web](https://github.com/scireum/sirius-web) - Contains the the web server along with [**Tagliatelle**](https://github.com/scireum/sirius-web/tree/master/src/main/java/sirius/tagliatelle) which is our template engine
+* [sirius-db](https://github.com/scireum/sirius-db) - Contains a persistence framework which helps to manage [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/) datasources, [MongoDB](https://docs.mongodb.com/), [Elasticsearch](https://www.elastic.co/guide/index.html) or [Redis](https://redis.io/documentation)
+* [sirius-biz](https://github.com/scireum/sirius-biz) - Contains a lot of high level frameworks which help to built cloud native business applications
 
 ## Pre-Requisites
 

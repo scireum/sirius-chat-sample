@@ -4,7 +4,9 @@ skinparam monochrome true
 skinparam ArrowColor gray
 skinparam DefaultFontSize 10
 skinparam Note {
-    FontName Courier
+    FontName Arial
+    FontStyle bold
+    FontSize 11
     FontColor white
     BackGroundColor gray
 }

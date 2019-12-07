@@ -32,13 +32,15 @@ rnote over ChatSessionRegistry: removeSession()
 ==conversation==
 user -> ChatSession: ws://localhost:9000/websocket
 rnote over ChatSession: handleChatMessage()
-ChatSession -> ChatUpLink
-ChatUpLink -> ChatSessionRegistry: distributeMessage()
+ChatSession -> ChatUpLink: distributeMessage()
+rnote over ChatUpLink: distributeMessage()
+ChatUpLink -> ChatSessionRegistry: getAllSessions()
 activate ChatSessionRegistry
-rnote over ChatSessionRegistry: distributeMessage()
-ChatSession <- ChatSessionRegistry: sendToUser(1)
-ChatSession <-- ChatSessionRegistry: sendToUser(2)
-ChatSession <-- ChatSessionRegistry: sendToUser(n)
+rnote over ChatSessionRegistry: getAllSessions()
+ChatUpLink <- ChatSessionRegistry: List<ChatSession>
 deactivate ChatSessionRegistry
+ChatSession <- ChatUpLink: sendToUser(foo)
+ChatSession <-- ChatUpLink: sendToUser(bar)
+ChatSession <-- ChatUpLink: sendToUser(...)
 
 @enduml

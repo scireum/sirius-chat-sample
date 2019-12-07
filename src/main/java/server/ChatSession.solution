@@ -15,6 +15,7 @@ private void handleChatMessage(ChatMessage chatMessage) {
 private static ChatSessionRegistry registry;
 
 private void handleChatMessage(ChatMessage chatMessage) {
+    // undo CHALLENGE-1 here
     uplink.distributeMessage(chatMessage);
 }
 

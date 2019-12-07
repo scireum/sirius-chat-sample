@@ -13,21 +13,3 @@ public void removeSession(ChatSession chatSession) {
 public List<ChatSession> getAllSessions() {
     return Collections.unmodifiableList(chatSessions);
 }
-
-public void distributeMessage(ChatMessage message) {
-    getAllSessions().forEach(session -> session.sendToUser(message));
-}
-
-//TODO SIDE-QUEST-4
-
-@Part
-private Elastic elastic;
-
-public void distributeMessage(ChatMessage message) {
-        SearchableChatMessage msg = new SearchableChatMessage();
-        msg.setSender(message.getSender());
-        msg.setText(message.getText());
-        msg.setSendAt(LocalDateTime.now());
-        elastic.update(msg);
-}
-

@@ -103,8 +103,7 @@ the appropriate methods.
 
 ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-2.puml)
 
-Once this is all done, restart the Debugger and open two or more tabs. You should now be able to chat
-with each other. :clap:
+Once this is all done, restart the Debugger and open two or more tabs. You have ONE server which can handle multiple users! :clap:
 
 ### Hello Cluster (CHALLENGE-3)
 
@@ -132,21 +131,27 @@ da49b6443b62  elasticsearch:5.6.8   "/docker-entrypoint.…"   6 days ago  Up 3 
 
 ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-3.puml)
 
-Now restart the application and not only you can chat in multiple tabs, but other computers should be participating in the chat as well! :clap:
+Now restart the application and MULTIPLE servers (with their own users) can now participate in the same chat! :clap:
 
-### Ahoi World (CHALLENGE-4)
+### Hello Container (CHALLENGE-4)
 
 Now is time to package and create a container for our application.
 In real life, apps do not run under IDEs :stuck_out_tongue:
 
-Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and execute the following command:
- `docker build --rm -t sirius-chat .` from the project's root, using the provided [Dockerfile](Dockerfile)
+Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and execute the following command from the project's root folder:
+ `docker build --rm -t sirius-chat .`.
+  
+This command uses the provided [Dockerfile](Dockerfile) containing *instructions* to pack the compiled application inside an
+image which can be executed stand-alone.
 
-Now you can launch the application container. You will find a [ha/app/docker-compose.yml](ha/app/docker-compose.yml) file ready to rock & roll.
-Just adjust the values to the target Elasticsearch and Redis DBs your container should connect to, and **from the directory** hosting the file 
+To launch it, you will find a [ha/app/docker-compose.yml](ha/app/docker-compose.yml) file ready to rock & roll.
+Adjust the parameters to point the container to the target Redis (and Elasticsearch if you completed the SIDE-QUEST-4) and **from the directory** hosting the file 
 execute `docker-compose up -d`. After started, the application should be available at http://localhost. :clap:
 
 To stop it, run `docker-compose down`
+
+Obviously you can also start it with docker directly, like:
+`docker run -d -p 80:80 -e REDIS_HOST=CHANGE_ME -e REDIS_PORT=CHANGE_ME -e ES_HOST=CHANGE_ME:33002 sirius-chat`
 
 ### Side-Quest: HA-Setup (SIDE-QUEST-1)
 

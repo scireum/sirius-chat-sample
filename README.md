@@ -76,7 +76,7 @@ even monitor some details via http://localhost:9000/system/console (e.g. by exec
 using this ID to spot all relevant code positions. You will also find the appropriate `Class.solution` file
 which will assist in case you're in trouble :wink:
 
-### Hello World (CHALLENGE-1)
+### Hello Myself (CHALLENGE-1)
 
 The first step is to make the server respond to incoming chat messages. These messages will
 simply be sent back to the client. But first, let's find out where the client comes from. Head
@@ -103,9 +103,10 @@ the appropriate methods.
 
 ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-2.puml)
 
-Once this is all done, restart the Debugger and open two or more tabs. You have ONE server which can handle multiple users! :clap:
+Once this is all done, restart the debugger and open two or more tabs (or let others in the network connect to your computer).
+You now have ONE server which can handle multiple users! :clap:
 
-### Hello Cluster (CHALLENGE-3)
+### Hello Neighbourhood (CHALLENGE-3)
 
 The third challenge starts by extending [ChatUplink](src/main/java/server/ChatUplink.java) with [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java) and
 broadcasting the message to subscribers instead of sending it only to the sessions registered.
@@ -133,13 +134,13 @@ da49b6443b62  elasticsearch:5.6.8   "/docker-entrypoint.…"   6 days ago  Up 3 
 
 Now restart the application and MULTIPLE servers (with their own users) can now participate in the same chat! :clap:
 
-### Hello Container (CHALLENGE-4)
+### Ahoi World (CHALLENGE-4)
 
-Now is time to package and create a container for our application.
+Now it is time to create a Docker image with our application.
 In real life, apps do not run under IDEs :stuck_out_tongue:
 
 Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and execute the following command from the project's root folder:
- `docker build --rm -t sirius-chat .`.
+ `docker build --rm -t sirius-chat .`
   
 This command uses the provided [Dockerfile](Dockerfile) containing *instructions* to pack the compiled application inside an
 image which can be executed stand-alone.
@@ -151,7 +152,7 @@ execute `docker-compose up -d`. After started, the application should be availab
 To stop it, run `docker-compose down`
 
 Obviously you can also start it with docker directly, like:
-`docker run -d -p 80:80 -e REDIS_HOST=CHANGE_ME -e REDIS_PORT=CHANGE_ME -e ES_HOST=CHANGE_ME:33002 sirius-chat`
+`docker run -d -p 80:80 -e REDIS_HOST=$host -e REDIS_PORT=$host -e ES_HOST=$host:$port sirius-chat`
 
 ### Side-Quest: HA-Setup (SIDE-QUEST-1)
 

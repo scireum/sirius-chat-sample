@@ -1,0 +1,47 @@
+@startuml
+skinparam handwritten true
+skinparam monochrome true
+skinparam ArrowColor gray
+skinparam DefaultFontSize 10
+skinparam Note {
+    FontName Arial
+    FontStyle bold
+    FontSize 11
+    FontColor white
+    BackGroundColor gray
+}
+skinparam Sequence {
+    DividerFontStyle normal
+    DividerBorderThickness 1
+    DividerBorderColor lightgray
+}
+
+hide footbox
+
+participant ChatSession
+participant ChatSessionRegistry
+participant ChatUpLink
+participant ChatClusterUplink
+participant Interconnect
+database Redis
+
+==send==
+ChatSession -> ChatUpLink: distributeMesssage()
+rnote over ChatUpLink: distributeMesssage()
+ChatUpLink -> ChatClusterUplink: broadcastMessage()
+ChatClusterUplink -> Interconnect: dispatch()
+Interconnect --> Redis: publish
+
+==receive==
+Interconnect <-- Redis: subscribe
+ChatClusterUplink <- Interconnect: handleEvent()
+rnote over ChatClusterUplink: handleEvent()
+ChatClusterUplink -> ChatSessionRegistry: getAllSessions()
+activate ChatSessionRegistry
+ChatClusterUplink <- ChatSessionRegistry: List<ChatSession>
+deactivate ChatSessionRegistry
+ChatSession <- ChatClusterUplink: sendToUser(foo)
+ChatSession <-- ChatClusterUplink: sendToUser(bar)
+ChatSession <-- ChatClusterUplink: sendToUser(...)
+
+@enduml

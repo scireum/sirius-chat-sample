@@ -123,8 +123,8 @@ To do that, edit the [instance.conf](instance.conf) and update the parameters
 To see where you current Redis is running (so you can share it with someone else) you will need your IP Address and Redis port.
 For the IP, `ifconfig -a` Mac/Unix or `ipconfig /ALL` Windows are good commands (or the good ol' [Google](google.com))
 
-For the Redis port running inside your local Docker, type `docker ps`, and you should see something like below. In this example, Redis is *exposed* locally under port **32768**.
-```
+For the Redis port running inside your local Docker, type `docker ps`, and you should see something like below. In this example, Redis is *exposed* locally under port **32769**.
+``` console
 CONTAINER ID  IMAGE                 COMMAND                  CREATED     STATUS      PORTS                               NAMES
 da49b6443b62  elasticsearch:5.6.8   "/docker-entrypoint.…"   6 days ago  Up 3 hours  9300/tcp, 0.0.0.0:32768->9200/tcp   siriussamplechat_elasticsearch_1
 63ef2bfb9aeb  redis:3.2             "docker-entrypoint.s…"   6 days ago  Up 3 hours  0.0.0.0:32769->6379/tcp             siriussamplechat_redis_1

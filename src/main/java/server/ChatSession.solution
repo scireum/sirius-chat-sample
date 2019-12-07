@@ -1,7 +1,7 @@
- // TODO CHALLENGE-1:
+// TODO CHALLENGE-1:
 private void handleHelloMessage(JSONObject messageObject) {
     username = messageObject.getString("sender");
-    sendToUser(new ChatMessage(Strings.apply("Willkommen im sirius Chat, %s!", username), "SKIP"));
+    sendToUser(new ChatMessage(Strings.apply("Welcome to the sirius chat, %s!", username), "SKIP"));
 }
 
 //TODO CHALLENGE-1:

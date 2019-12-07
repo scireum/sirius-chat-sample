@@ -6,6 +6,7 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import sirius.biz.isenguard.Isenguard;
 import sirius.biz.isenguard.RateLimitingInfo;
+import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Part;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
@@ -90,7 +91,7 @@ public class ChatSession extends WebsocketSession {
      */
     private void handleChatMessage(ChatMessage chatMessage) {
         //TODO CHALLENGE-1 send the received message right back to the user connected to this websocket
-        //TODO CHALLENGE-2 forward the received message to the ChatUplink
+        //TODO CHALLENGE-2 forward the received message to the ChatUplink instead
 
         // Feel free to play around here - censor curse words / replace emoji by their unicode code points or the like...
 
@@ -112,12 +113,12 @@ public class ChatSession extends WebsocketSession {
 
     @Override
     public void onWebsocketOpened() {
-        //TODO CHALLENGE-2 notify the CHatSessionRegistry about this session
+        //TODO CHALLENGE-2 notify the ChatSessionRegistry about this new session
         //TODO SIDE-QUEST-3 Enforce rate limiting
     }
 
     @Override
     public void onWebsocketClosed() {
-        //TODO CHALLENGE-2 notify the CHatSessionRegistry about the end of this session
+        //TODO CHALLENGE-2 notify the ChatSessionRegistry about the end of this session
     }
 }

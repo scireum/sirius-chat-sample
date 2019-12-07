@@ -29,6 +29,9 @@ public class ChatSession extends WebsocketSession {
     @Part
     private static ChatUplink uplink;
 
+    //TODO CHALLENGE-2
+    //TODO initialize ChatSessionRegistry as @Part (just like uplink above)
+
     /**
      * Creates a new session for the given channel and request.
      *

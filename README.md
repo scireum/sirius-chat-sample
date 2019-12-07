@@ -89,7 +89,7 @@ frames. (You can review the client code required to open a web socket in JavaScr
 not required for our challenge - [client.js](src/main/resources/assets/client/client.js)). For each
 web socket being connected, the [WebSocketDispatcher](src/main/java/server/WebSocketDispatcher.java)
 will detect this and initialize a [ChatSession](src/main/java/server/ChatSession.java). Head over
-to the session class to read the provided docs and finally to start some coding :smile:
+to the session class to read the provided docs and finally to start some coding! :computer:
 
 ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-1.puml)
 
@@ -106,14 +106,33 @@ the appropriate methods.
 Once this is all done, restart the Debugger and open two or more tabs. You should now be able to chat
 with each other. :clap:
 
-### Hello HA (CHALLENGE-3)
+### Hello Cluster (CHALLENGE-3)
 
-The third challenge starts by completing the [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java).
-Once this is done, change the [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) as noted
-in the JavaDoc.
+The third challenge starts by extending [ChatUplink](src/main/java/server/ChatUplink.java) with [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java) and
+broadcasting the message to subscribers instead of sending it only to the sessions registered.
 
-After restarting the server, the chat should continue to work. Now if you specify a shared Redis server in
-[develop.conf](develop.conf) you should be able to share your chat with other machines. :clap:
+The [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java) is already prepared to publish the message to [**Redis**](https://redis.io/documentation),
+but you will have to complete the code in order to forward to message the registered sessions.
+
+The fun starts when you and other participants share the same Redis installation, which makes all computers
+running the application part of a cluster.
+
+To do that, edit the [instance.conf](instance.conf) and update the parameters
+`redis.pools.system.host` and `redis.pools.system.port`.
+
+To see where you current Redis is running (so you can share it with someone else) you will need your IP Address and Redis port.
+For the IP, `ifconfig -a` Mac/Unix or `ipconfig /ALL` Windows are good commands (or the good ol' [Google](google.com))
+
+For the Redis port running inside your local Docker, type `docker ps`, and you should see something like below. In this example, Redis is *exposed* locally under port **32768**.
+```
+CONTAINER ID  IMAGE                 COMMAND                  CREATED     STATUS      PORTS                               NAMES
+da49b6443b62  elasticsearch:5.6.8   "/docker-entrypoint.…"   6 days ago  Up 3 hours  9300/tcp, 0.0.0.0:32768->9200/tcp   siriussamplechat_elasticsearch_1
+63ef2bfb9aeb  redis:3.2             "docker-entrypoint.s…"   6 days ago  Up 3 hours  0.0.0.0:32769->6379/tcp             siriussamplechat_redis_1
+``` 
+
+![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-3.puml)
+
+Now restart the application and not only you can chat in multiple tabs, but other computers should be participating in the chat as well! :clap:
 
 ### Ahoi World (CHALLENGE-4)
 

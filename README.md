@@ -98,8 +98,8 @@ Once the challenge is completed, you should be able to chat with yourself. :clap
 ### Hello Everyone (CHALLENGE-2)
 
 For the second challenge, head to [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) and
-implement the missing parts. Then switch to [ChatSession](src/main/java/server/ChatSession.java) to call
-the appropriate methods.
+implement the missing parts. Then switch to [ChatSession](src/main/java/server/ChatSession.java) and 
+[ChatUplink](src/main/java/server/ChatUplink.java) to call the appropriate methods.
 
 ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-2.puml)
 

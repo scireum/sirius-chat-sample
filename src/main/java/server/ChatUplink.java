@@ -16,6 +16,8 @@ import java.util.List;
 @Register(classes = {ChatUplink.class})
 public class ChatUplink {
 
+    //TODO CHALLENGE-2 initialize ChatSessionRegistry as @Part
+
     /**
      * Forwards  the received chat message
      *

@@ -18,11 +18,17 @@ public class ChatClusterUplink implements InterconnectHandler {
     @Part
     private static Interconnect interconnect;
 
+    @Part
+    private static ChatSessionRegistry registry;
+
     @Override
     public void handleEvent(JSONObject event) {
         // TODO CHALLENGE-3 propagate the event as JSON to all available sessions in ChatSessionRegistry
         // TODO right now you definitely know how to grab ChatSessionRegistry :-)
         // TODO Hint! this code looks familiar? Explains why you might get messages in double ;-)
+        for (ChatSession session : registry.getAllSessions()) {
+            session.sendToUser(ChatMessage.fromJSON(event));
+        }
     }
 
     /**

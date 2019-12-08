@@ -1,6 +1,7 @@
 package server;
 
 import search.SearchableChatMessage;
+import sirius.db.es.Elastic;
 import sirius.kernel.di.std.Part;
 import sirius.kernel.di.std.Register;
 
@@ -15,6 +16,9 @@ import java.util.List;
 // TODO CHALLENGE-3 extend ChatClusterUplink
 @Register(classes = {ChatUplink.class})
 public class ChatUplink extends ChatClusterUplink {
+
+    @Part
+    private Elastic elastic;
 
     //TODO CHALLENGE-2 initialize ChatSessionRegistry as @Part
     //@Part
@@ -38,5 +42,10 @@ public class ChatUplink extends ChatClusterUplink {
         // TODO SIDE-QUEST-4 - create a new instance of SearchableChatMessage
         // TODO use @Part to obtain the database connector "Elastic" which can insert entities into Elasticsearch.
         // TODO invoke elastic.update to persist the entity in Elasticsearch....
+        SearchableChatMessage msg = new SearchableChatMessage();
+        msg.setSender(message.getSender());
+        msg.setText(message.getText());
+        msg.setSendAt(LocalDateTime.now());
+        elastic.update(msg);
     }
 }

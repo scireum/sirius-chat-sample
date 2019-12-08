@@ -7,6 +7,6 @@ private static ChatSessionRegistry registry;
 
 public void handleEvent(JSONObject event) {
     for (ChatSession session : registry.getAllSessions()) {
-        session.sendToUser(ChatMessage.fromJSON(event);
+        session.sendToUser(ChatMessage.fromJSON(event));
     }
 }

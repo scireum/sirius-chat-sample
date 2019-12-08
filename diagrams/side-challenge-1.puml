@@ -1,0 +1,48 @@
+@startuml
+skinparam handwritten true
+skinparam monochrome true
+skinparam ArrowColor gray
+skinparam DefaultFontSize 10
+skinparam Note {
+    FontName Arial
+    FontStyle bold
+    FontSize 11
+    FontColor white
+    BackGroundColor gray
+}
+skinparam usecase {
+    BackGroundColor<< dead >> lightgray
+    FontColor<< dead >> red
+}
+
+rectangle "2 chat instances ..." {
+foo -> (traefik)
+bar -left-> (traefik)
+(traefik) ---> (sirius-chat-1): foo's\nsession
+(traefik) ---> (sirius-chat-2): bar's\nsession
+(sirius-chat-1) --> (Redis)
+(sirius-chat-1) --> (Elasticsearch)
+(sirius-chat-2) --> (Redis)
+(sirius-chat-2) --> (Elasticsearch)
+}
+
+rectangle "... after 'sirius-chat-2' crashes" {
+:foo: as newfoo
+:bar: as newbar
+(traefik) as newtraefik
+(sirius-chat-1) as newchat1
+(sirius-chat-2) as newchat2 << dead >>
+(Redis) as newredis
+(Elasticsearch) as newes
+
+newfoo -> (newtraefik)
+newbar -left-> (newtraefik)
+(newtraefik) --> (newchat1): foo's\nsession
+note "new bar's\nsession" as RD
+(newtraefik) .. RD
+RD ..> (newchat1)
+(newchat1) --> (newredis)
+(newchat1) --> (newes)
+}
+
+@enduml

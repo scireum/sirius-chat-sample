@@ -156,11 +156,10 @@ Read the Quick Start Guide at [traefik.io](https://docs.traefik.io/getting-start
 To start the set, head to the ha folder and issue: `docker-compose up -d`
 To start 2 instances of the sirius-chat you can use: `docker-compose up -d --scale sirius-chat-sample=2`
 
-![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/side-challenge-1a.puml)
-![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/side-challenge-1b.puml)
+![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/side-challenge-1.puml)
 
 Now when browsing the application via http://localhost, you should be able to stop one of the containers on-the-fly
-and still be able to chat as you will be automatically be sent to another running host! :v:
+and still be able to chat as you will be automatically redirected to another running instance! :v:
 
 ### Side-Quest: Chat-Bots (SIDE-QUEST-2)
 

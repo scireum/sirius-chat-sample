@@ -17,6 +17,8 @@ import java.util.List;
 public class ChatUplink {
 
     //TODO CHALLENGE-2 initialize ChatSessionRegistry as @Part
+    @Part
+    private static ChatSessionRegistry registry;
 
     /**
      * Forwards  the received chat message
@@ -26,6 +28,9 @@ public class ChatUplink {
     public void distributeMessage(ChatMessage message) {
         // TODO CHALLENGE-2 Call the "sendToUser" for all available sessions
         // TODO use @Part to obtain the instance of ChatSessionRegistry needed for this task
+        for (ChatSession session : registry.getAllSessions()) {
+            session.sendToUser(message);
+        }
 
         // TODO CHALLENGE-3 broadcast the message to subscribers using the method available in the super class instead
 

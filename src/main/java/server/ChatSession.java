@@ -31,6 +31,8 @@ public class ChatSession extends WebsocketSession {
 
     //TODO CHALLENGE-2
     //TODO initialize ChatSessionRegistry as @Part (just like uplink above)
+    @Part
+    private static ChatSessionRegistry registry;
 
     /**
      * Creates a new session for the given channel and request.
@@ -96,8 +98,9 @@ public class ChatSession extends WebsocketSession {
      */
     private void handleChatMessage(ChatMessage chatMessage) {
         //TODO CHALLENGE-1 send the received message right back to the user connected to this websocket
-        sendToUser(chatMessage);
+        //sendToUser(chatMessage); - inactivated for challenge-2
         //TODO CHALLENGE-2 forward the received message to the ChatUplink instead
+        uplink.distributeMessage(chatMessage);
 
         // Feel free to play around here - censor curse words / replace emoji by their unicode code points or the like...
 
@@ -120,11 +123,13 @@ public class ChatSession extends WebsocketSession {
     @Override
     public void onWebsocketOpened() {
         //TODO CHALLENGE-2 notify the ChatSessionRegistry about this new session
+        registry.registerNewSession(this);
         //TODO SIDE-QUEST-3 Enforce rate limiting
     }
 
     @Override
     public void onWebsocketClosed() {
         //TODO CHALLENGE-2 notify the ChatSessionRegistry about the end of this session
+        registry.removeSession(this);
     }
 }

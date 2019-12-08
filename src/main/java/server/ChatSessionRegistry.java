@@ -16,4 +16,17 @@ public class ChatSessionRegistry {
     // TODO keep a list of all active sessions (wrap it using Collections.synchronizedList to make it threadsafe)
     // TODO provide methods to add or remove a session
     // TODO add a method to return the registered sessions as an unmodifiableList
+    private List<ChatSession> chatSessions = Collections.synchronizedList(new ArrayList<>());
+
+    public void registerNewSession(ChatSession chatSession) {
+        chatSessions.add(chatSession);
+    }
+
+    public void removeSession(ChatSession chatSession) {
+        chatSessions.remove(chatSession);
+    }
+
+    public List<ChatSession> getAllSessions() {
+        return Collections.unmodifiableList(chatSessions);
+    }
 }

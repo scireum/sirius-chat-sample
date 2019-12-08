@@ -5,7 +5,7 @@ private static ChatSessionRegistry registry;
 
 public void distributeMessage(ChatMessage message) {
     for (ChatSession session : registry.getAllSessions()) {
-        session.sendTouser(message);
+        session.sendToUser(message);
     }
 }
 

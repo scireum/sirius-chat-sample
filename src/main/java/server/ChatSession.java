@@ -1,5 +1,6 @@
 package server;
 
+import bots.ChatBot;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -8,8 +9,12 @@ import sirius.biz.isenguard.Isenguard;
 import sirius.biz.isenguard.RateLimitingInfo;
 import sirius.kernel.commons.Strings;
 import sirius.kernel.di.std.Part;
+import sirius.kernel.di.std.Parts;
 import sirius.web.http.WebContext;
 import sirius.web.http.WebsocketSession;
+
+import java.util.Collection;
+import java.util.Optional;
 
 /**
  * A {@link WebsocketSession} with a single user capable of receiving and sending chat messages.
@@ -33,6 +38,10 @@ public class ChatSession extends WebsocketSession {
     //TODO initialize ChatSessionRegistry as @Part (just like uplink above)
     @Part
     private static ChatSessionRegistry registry;
+
+    @Parts(ChatBot.class)
+    private static Collection<ChatBot> chatBots;
+
 
     /**
      * Creates a new session for the given channel and request.
@@ -100,13 +109,20 @@ public class ChatSession extends WebsocketSession {
         //TODO CHALLENGE-1 send the received message right back to the user connected to this websocket
         //sendToUser(chatMessage); - inactivated for challenge-2
         //TODO CHALLENGE-2 forward the received message to the ChatUplink instead
-        uplink.distributeMessage(chatMessage);
+        //uplink.distributeMessage(chatMessage); - inactivate for side-challenge-2
 
         // Feel free to play around here - censor curse words / replace emoji by their unicode code points or the like...
 
         //TODO SIDE-QUEST-2 - get hold of all available {@link ChatBot} implementations by using a @Parts annotation
         // on a static List<ChatBot> field.
         // Iterate over all bots while they return false and finally distribute the message
+        Optional<ChatBot> bot =
+                chatBots.stream().filter(chatBot -> chatBot.shouldHandleMessage(chatMessage)).findFirst();
+        if (bot.isPresent()) {
+            bot.get().handleMessage(chatMessage, this::sendToUser, uplink::distributeMessage);
+        } else {
+            uplink.distributeMessage(chatMessage);
+        }
 
         //TODO SIDE-QUEST-3 Enforce rate limiting
     }

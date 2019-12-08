@@ -3,10 +3,10 @@
 public class ChatClusterUplink implements InterconnectHandler {
 
 @Part
-private ChatSessionRegistry chatSessionRegistry;
+private static ChatSessionRegistry registry;
 
 public void handleEvent(JSONObject event) {
     for (ChatSession session : registry.getAllSessions()) {
-        session.sendTouser(ChatMessage.fromJSON(event);
+        session.sendToUser(ChatMessage.fromJSON(event);
     }
 }

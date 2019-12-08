@@ -7,6 +7,6 @@ product.baseUrl=\"http://localhost:80\"
 redis.pools.system.host=\"%s\"
 redis.pools.system.port=%s
 elasticsearch.hosts=\"%s\"
-" "$REDIS_HOST" "$REDIS_PORT" "$ES_HOST" >instance.conf
+" "$REDIS_HOST" "$REDIS_PORT" "$ES_HOSTS" >instance.conf
 
 java -cp sirius-chat-sample-DEVELOPMENT-SNAPSHOT.jar:"release-dir/lib/*" sirius.kernel.Setup

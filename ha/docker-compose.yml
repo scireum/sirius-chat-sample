@@ -1,0 +1,61 @@
+version: '3'
+
+# Reference. https://docs.traefik.io/getting-started/quick-start/
+# 1. launch with 'docker-compose up -d'
+# 2. launch 2 instances of sirius-chat with 'docker-compose up -d --scale sirius-chat-sample=2'
+
+# custom network to connect all containers
+networks:
+  custom_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+
+services:
+  # redis
+  redis:
+    image: redis:3.2
+    ports:
+      - "6379"
+    hostname: redis
+    networks:
+      custom_net:
+        ipv4_address: 172.18.0.10
+
+  # es
+  elasticsearch:
+    image: elasticsearch:5.6.8
+    ports:
+      - "9200"
+    environment:
+      - xpack.security.enabled=false
+      - script.inline=true
+      - ES_JAVA_OPTS=-Xms32M -Xmx128M
+    hostname: elasticsearch
+    networks:
+      custom_net:
+        ipv4_address: 172.18.0.11
+
+  # traefik load balancer
+  traefik:
+    image: traefik:v2.0
+    networks:
+      - custom_net
+    # TODO Add a configuration pretty much like the reverse-proxy from the reference
+
+  # sirius-chat
+  sirius-chat-sample:
+    # The sirius-chat image built with the provided Dockerfile
+    image: sirius-chat
+    networks:
+      - custom_net
+    depends_on:
+      - redis
+      - elasticsearch
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ES_HOSTS=elasticsearch:9200
+    # TODO Add a configuration so traefik can load-balance requests into the chat
+    # TODO Hint: rule=PathPrefix(`/`)

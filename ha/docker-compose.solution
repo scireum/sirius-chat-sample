@@ -1,8 +1,5 @@
 // TODO SIDE-QUEST-1:
   traefik:
-    # The official v2.0 Traefik docker image
-    image: traefik:v2.0
-    # Enables the web UI and tells Traefik to listen to docker
     command: --api.insecure=true --providers.docker
     ports:
       # The HTTP port
@@ -14,10 +11,5 @@
       - /var/run/docker.sock:/var/run/docker.sock
 
   sirius-chat-sample:
-    image: sirius-chat
-    environment:
-      - REDIS_HOST=CHANGE_ME
-      - REDIS_PORT=CHANGE_ME
-      - ES_HOST=CHANGE_ME:CHANGE_ME
     labels:
     - "traefik.http.routers.sirius-chat-sample.rule=PathPrefix(`/`)"

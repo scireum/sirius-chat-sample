@@ -115,20 +115,13 @@ The [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java) is already 
 but you will have to complete the code in order to forward to message the registered sessions.
 
 The fun starts when you and other participants share the same Redis installation, which makes all computers
-running the application part of a cluster.
+running the application as part of the same cluster.
 
-To do that, edit the [instance.conf](instance.conf) and update the parameters
-`redis.pools.system.host` and `redis.pools.system.port`.
+We've configured Redis to expose port **16379** by default. Simply select one member to *share* his Redis container and
+update the hostname/IP in the [instance.conf](instance.conf) `redis.pools.system.host`.
 
-To see where you current Redis is running (so you can share it with someone else) you will need your IP Address and Redis port.
-For the IP, `ifconfig -a` Mac/Unix or `ipconfig /ALL` Windows are good commands (or the good ol' [Google](google.com))
-
-For the Redis port running inside your local Docker, type `docker ps`, and you should see something like below. In this example, Redis is *exposed* locally under port **32769**.
-``` console
-CONTAINER ID  IMAGE                 COMMAND                  CREATED     STATUS      PORTS                               NAMES
-da49b6443b62  elasticsearch:5.6.8   "/docker-entrypoint.…"   6 days ago  Up 3 hours  9300/tcp, 0.0.0.0:32768->9200/tcp   siriussamplechat_elasticsearch_1
-63ef2bfb9aeb  redis:3.2             "docker-entrypoint.s…"   6 days ago  Up 3 hours  0.0.0.0:32769->6379/tcp             siriussamplechat_redis_1
-``` 
+> **_Hint:_** `ifconfig -a` on Mac/Unix or `ipconfig /ALL` on Windows are good commands to determine your IP address 
+>(and as always, the good ol' [Google](google.com) for other ways)
 
 ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-3.puml)
 
@@ -145,14 +138,12 @@ Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and exe
 This command uses the provided [Dockerfile](Dockerfile) containing *instructions* to pack the compiled application inside an
 image which can be executed stand-alone.
 
-To launch it, you will find a [ha/app/docker-compose.yml](ha/app/docker-compose.yml) file ready to rock & roll.
-Adjust the parameters to point the container to the target Redis (and Elasticsearch if you completed the SIDE-QUEST-4) and **from the directory** hosting the file 
-execute `docker-compose up -d`. After started, the application should be available at http://localhost. :clap:
+To launch your fresh created container, you can use this command: *switch localhost and ports if connecting somewhere*
+`docker run -d --name sirius-chat-container --rm -p 80:80 -e REDIS_HOST=localhost -e REDIS_PORT=16379 -e ES_HOSTS=localhost:19200 sirius-chat`
 
-To stop it, run `docker-compose down`
+After started, the application should be available at http://localhost. :clap:
 
-Obviously you can also start it with docker directly, like:
-`docker run -d -p 80:80 -e REDIS_HOST=$host -e REDIS_PORT=$host -e ES_HOST=$host:$port sirius-chat`
+To stop it, run `docker stop sirius-chat-container`
 
 ### Side-Quest: HA-Setup (SIDE-QUEST-1)
 
@@ -160,12 +151,13 @@ This challenge gives a small glance at how a high availability system looks like
 of our chat app under a docker container, with a `traefik` container performing the load-balancing between them.
 
 Read the Quick Start Guide at [traefik.io](https://docs.traefik.io/getting-started/quick-start/) and fill up the 
-[docker-compose.yml](ha/traefik/docker-compose.yml) file in in order to setup a load-balancer for our chat.
-To start traefik: `docker-compose up -d traefik`
-To start 2 instances of the sirius-chat: `docker-compose up -d --scale sirius-chat-sample=2`
+[docker-compose.yml](ha/docker-compose.yml) file in in order to setup a load-balancer for our chat.
 
-Now when browsing the application via http://localhost, you should be able to stop one of the containes on-the-fly
-and still be able to chat as you will be automatically sent to another running host! :v:
+To start the set, head to the ha folder and issue: `docker-compose up -d`
+To start 2 instances of the sirius-chat you can use: `docker-compose up -d --scale sirius-chat-sample=2`
+
+Now when browsing the application via http://localhost, you should be able to stop one of the containers on-the-fly
+and still be able to chat as you will be automatically be sent to another running host! :v:
 
 ### Side-Quest: Chat-Bots (SIDE-QUEST-2)
 

@@ -38,9 +38,10 @@ rectangle "... after 'sirius-chat-2' crashes" {
 newfoo -> (newtraefik)
 newbar -left-> (newtraefik)
 (newtraefik) --> (newchat1): foo's\nsession
+(newtraefik) ... (newchat2): old bar's\nsession
 note "new bar's\nsession" as RD
-(newtraefik) .. RD
-RD ..> (newchat1)
+(newtraefik) -- RD
+RD --> (newchat1)
 (newchat1) --> (newredis)
 (newchat1) --> (newes)
 }

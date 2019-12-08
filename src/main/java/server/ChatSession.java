@@ -80,6 +80,8 @@ public class ChatSession extends WebsocketSession {
      */
     private void handleHelloMessage(JSONObject messageObject) {
         // TODO CHALLENGE-1 fill the "username" field from the "sender" value in the given message object
+        username = messageObject.getString("sender");
+        sendToUser(new ChatMessage(Strings.apply("Welcome to the sirius chat, %s!", username), "SKIP"));
         // TODO send a message back to the user like "Welcome [username]..." with an artificial sender
         // e.g. "server" or "Bot"....
 
@@ -94,6 +96,7 @@ public class ChatSession extends WebsocketSession {
      */
     private void handleChatMessage(ChatMessage chatMessage) {
         //TODO CHALLENGE-1 send the received message right back to the user connected to this websocket
+        sendToUser(chatMessage);
         //TODO CHALLENGE-2 forward the received message to the ChatUplink instead
 
         // Feel free to play around here - censor curse words / replace emoji by their unicode code points or the like...

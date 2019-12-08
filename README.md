@@ -203,9 +203,12 @@ which is the entity class (a Java class which defines the fields to be stored in
 and provides a tiny UI to search in elastic. Also have a look (and later play around) with the template
 which is used to actually render the search output [search.html.pasta](src/main/resources/templates/search.html.pasta).
 
-To ingest data into Elastic, jump to the [ChatSessionRegistry](src/main/java/server/ChatSessionRegistry.java) and
+To ingest data into Elastic, jump to the [ChatUplink](src/main/java/server/ChatUplink.java) and
 implement the TODOs in **distributeMessage**. After restarting the debugger, new chat message should be
-visible in the search UI. 
+visible in the search UI. :clap:
+
+> **_Hint:_** Just like with Redis: if you share the same Elasticsearch, the messages from everyone
+> will be visible and searcheable to every server and its users.
 
 ---
 

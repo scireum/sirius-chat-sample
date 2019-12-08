@@ -4,12 +4,12 @@ services:
   redis:
     image: redis:3.2
     ports:
-      - "6379"
+      - "16379:6379"
     hostname: redis
   elasticsearch:
     image: elasticsearch:5.6.8
     ports:
-      - "9200"
+      - "19200:9200"
     environment:
       - xpack.security.enabled=false
       - script.inline=true

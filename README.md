@@ -109,7 +109,7 @@ You now have ONE server which can handle multiple users! :clap:
 ### Hello Neighbourhood (CHALLENGE-3)
 
 The third challenge starts by extending [ChatUplink](src/main/java/server/ChatUplink.java) with [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java) and
-broadcasting the message to subscribers instead of sending it only to the sessions registered.
+broadcasting the message to subscribers instead of sending it only to the local sessions registered.
 
 The [ChatClusterUplink](src/main/java/server/ChatClusterUplink.java) is already prepared to publish the message to [**Redis**](https://redis.io/documentation),
 but you will have to complete the code in order to forward to message the registered sessions.
@@ -118,7 +118,7 @@ The fun starts when you and other participants share the same Redis installation
 running the application as part of the same cluster.
 
 We've configured Redis to expose port **16379** by default. Simply select one member to *share* his Redis container and
-update the hostname/IP in the [instance.conf](instance.conf) `redis.pools.system.host`.
+update the `redis.pools.system.host` in the [instance.conf](instance.conf).
 
 > **_Hint:_** `ifconfig -a` on Mac/Unix or `ipconfig /ALL` on Windows are good commands to determine your IP address 
 >(and as always, the good ol' [Google](google.com) for other ways)

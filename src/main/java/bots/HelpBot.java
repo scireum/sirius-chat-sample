@@ -15,14 +15,14 @@ import sirius.kernel.di.std.Register;
 import java.util.function.Consumer;
 
 /**
- * Handles :hilfe messages and responds with a short message.
+ * Handles :help messages and responds with a short message.
  * <p>
  * This acts as a sample for a very basic chat bot.
  */
 @Register
 public class HelpBot implements ChatBot {
 
-    private static final String HANDLED_MESSAGE = ":hilfe";
+    private static final String HANDLED_MESSAGE = ":help ";
 
     @Override
     public boolean shouldHandleMessage(ChatMessage message) {
@@ -33,7 +33,7 @@ public class HelpBot implements ChatBot {
     public void handleMessage(ChatMessage message,
                               Consumer<ChatMessage> responsesToUser,
                               Consumer<ChatMessage> responsesToEveryBody) {
-        responsesToUser.accept(new ChatMessage(Strings.apply("Hallo %s, ich helfe dir gerne!", message.getSender()),
+        responsesToUser.accept(new ChatMessage(Strings.apply("Hello %s, I'm pleased to help you!", message.getSender()),
                                                getClass().getSimpleName()));
 
         // Have fun here - tell everyone that someone needs help

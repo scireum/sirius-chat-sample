@@ -42,10 +42,10 @@ public class CalcBot implements ChatBot {
             Expression expression = Parser.parse(calculation);
 
             responsesToEveryBody.accept(message);
-            responsesToEveryBody.accept(new ChatMessage(Strings.apply("Das Ergebnis ist: %.2f", expression.evaluate()),
+            responsesToEveryBody.accept(new ChatMessage(Strings.apply("The result is: %.2f", expression.evaluate()),
                                                         getClass().getSimpleName()));
         } catch (ParseException e) {
-            responsesToEveryBody.accept(new ChatMessage("Die übergebene Rechnung konnte nicht verarbeitet werden.",
+            responsesToEveryBody.accept(new ChatMessage("The given formula cannot be parsed.",
                                                         getClass().getSimpleName()));
         }
     }

@@ -29,7 +29,7 @@ You should have the following Software stack installed in order to execute these
 * [IntelliJ Idea](https://www.jetbrains.com/idea/)
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) *registration needed*.
     * Alternative for some Windows systems uncapable of running Docker Desktop: [Docker ToolBox](https://docs.docker.com/toolbox/)
-* [docker-compose](https://docs.docker.com/compose/install/) version 1.24.1
+* [docker-compose](https://docs.docker.com/compose/install/)
 
 Once everything is installed, launch IntelliJ and choose to create a New Project from Version Control, and give the official Github URL for this project:
 
@@ -138,8 +138,8 @@ Execute the Maven **package** Lifecycle, switch to the IntelliJ Terminal and exe
 This command uses the provided [Dockerfile](Dockerfile) containing *instructions* to pack the compiled application inside an
 image which can be executed stand-alone.
 
-To launch your fresh created container, you can use this command: *switch localhost and ports if connecting somewhere*
-`docker run -d --name sirius-chat-container --rm -p 80:80 -e REDIS_HOST=localhost -e REDIS_PORT=16379 -e ES_HOSTS=localhost:19200 sirius-chat`
+To launch your fresh created container, you can use this command: *switch localhost to your machine's IP address or another shared host if needed*
+`docker run -d --name sirius-chat-container --rm -p 80:80 -e REDIS_HOST=CHANGE_ME -e REDIS_PORT=16379 -e ES_HOSTS=localhost:19200 sirius-chat`
 
 After started, the application should be available at http://localhost. :clap:
 

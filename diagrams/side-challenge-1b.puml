@@ -1,0 +1,28 @@
+@startuml
+skinparam handwritten true
+skinparam monochrome true
+skinparam ArrowColor gray
+skinparam DefaultFontSize 10
+skinparam usecase {
+    BackGroundColor<< dead >> gray
+    FontColor<< dead >> white
+}
+skinparam Note {
+    FontName Arial
+    FontStyle bold
+    FontSize 11
+    FontColor white
+    BackGroundColor gray
+}
+
+:User1: -> (traefik)
+:User2: -left-> (traefik)
+(traefik) --> (sirius-chat-1): session\nUser1
+note "redirected:\nsession User2" as RD
+(traefik) -- RD
+RD --> (sirius-chat-1)
+(sirius-chat-2) << dead >>
+(sirius-chat-1) --> (Redis)
+(sirius-chat-1) --> (Elasticsearch)
+
+@enduml

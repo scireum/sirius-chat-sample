@@ -37,6 +37,10 @@ https://github.com/scireum-incubator/sirius-chat-sample.git
 
 > **_Note:_** A Popup will show up suggesting to Import as a Maven Project. Click **Import** and/or enable the Auto-Import option.
 
+### Virtual Machine
+
+As an alternative to installing the software stack above, you can also try this exercise using a ready-made [VirtualBox](virtualbox.org) Virtual Machine. You can download the Virtual Machine Appliance from [here](https://1drv.ms/f/s!ArdSSpYl491Fm0q7sSNFSm-oGI93) containing the software listed above pre-installed under an [Ubuntu](ubuntu.com) Linux distrubution. Both MD5 and SHA checksum files can be found there too, if you wanna make sure the file hasn't been tempered.
+
 ## Introduction
 
 To save some time, the project is already setup and also contains some scaffolding for the

@@ -39,7 +39,7 @@ https://github.com/scireum-incubator/sirius-chat-sample.git
 
 ### Virtual Machine
 
-As an alternative to installing the software stack above, you can also try this exercise using a ready-made [VirtualBox](virtualbox.org) Virtual Machine. You can download the Virtual Machine Appliance from [here](https://1drv.ms/f/s!ArdSSpYl491Fm0q7sSNFSm-oGI93) containing the software listed above pre-installed under an [Ubuntu](ubuntu.com) Linux distrubution. Both MD5 and SHA checksum files can be found there too, if you wanna make sure the file hasn't been tempered.
+As an alternative to installing the software stack above, you can also try this exercise using a ready-made [VirtualBox](https://www.virtualbox.org) Virtual Machine. You can download the Virtual Machine appliance from [here](https://1drv.ms/f/s!ArdSSpYl491Fm0q7sSNFSm-oGI93) and import it locally, which contains the entire software stack pre-installed under an [Ubuntu](ubuntu.com) Linux distrubution. Both MD5 and SHA checksum files can be found there too, if you wanna make sure the file hasn't been tempered.
 
 ## Introduction
 

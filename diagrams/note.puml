@@ -1,0 +1,14 @@
+@startuml
+skinparam handwritten true
+skinparam monochrome true
+skinparam Note {
+    FontName Arial
+    FontStyle bold
+    FontSize 11
+    FontColor white
+    BackGroundColor gray
+}
+note as N1
+    method()
+end note
+@enduml

@@ -35,7 +35,7 @@ Once everything is installed, launch IntelliJ and choose to create a New Project
 
 https://github.com/scireum-incubator/sirius-chat-sample.git
 
-> **_Note:_** A Popup will show up suggesting to Import as a Maven Project. Click **Import** and/or enable the Auto-Import option.
+>:page_with_curl: A Popup will show up suggesting to Import as a Maven Project. Click **Import** and/or enable the Auto-Import option.
 
 ### Virtual Machine
 
@@ -64,7 +64,7 @@ Speaking of which, SIRIUS applications can be started using a Java Application R
 - Main Class: `sirius.kernel.Setup`
 - VM Options:`-Ddebug=true -Dide=true`
 
-> **_Note:_** one more very important file (**src/main/resources/component.marker**). Although this file
+>:page_with_curl: one more very important file (**src/main/resources/component.marker**). Although this file
 is empty, is it essential, as it is used by the [Classpath](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/Classpath.java)
 scanner of the [Dependency Injector](https://github.com/scireum/sirius-kernel/blob/master/src/main/java/sirius/kernel/di/Injector.java)
 to discover all classpath roots which participate in the SIRIUS system.
@@ -75,12 +75,18 @@ Ok, we're almost good to go. Before diving into the first challenge, start a Deb
 a [**Docker**](https://docs.docker.com/) container for [**Redis**](https://redis.io/documentation) and one for [**Elasticsearch**](https://www.elastic.co/guide/index.html) which are required for later
 challenges (the stack is configured in [docker-compose.yml](docker-compose.yml)). Once a message
 like `System is UP and RUNNING` appears in the console, you should be able to view the chat UI: http://localhost:9000
-> **_Note:_** you can also have a look at the system state via http://localhost:9000/system/state and
+>:page_with_curl: you can also have a look at the system state via http://localhost:9000/system/state and
 even monitor some details via http://localhost:9000/system/console (e.g. by executing the `http` command). 
 
-> **_Hint:_** Each challenge has a unique ID (such as CHALLENGE-1). You can search in all files ("Find in Path")
+>:bulb: Each challenge has a unique ID (such as CHALLENGE-1). You can search in all files ("Find in Path")
 using this ID to spot all relevant code positions. You will also find the appropriate `Class.solution` file
-which will assist in case you're in trouble :wink:
+which will assist in case you're in trouble.
+
+>You can also checkout the [solution](https://github.com/scireum-incubator/sirius-chat-sample/tree/solution) branch
+>and jump directly to the final working solution.
+
+In the diagrams below you will find notes like this ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/note.puml)
+giving you a hint to where you should white some code. :wink:
 
 ### Hello Myself (CHALLENGE-1)
 
@@ -126,7 +132,7 @@ running the application as part of the same cluster.
 We've configured Redis to expose port **16379** by default. Simply select one member to *share* his Redis container and
 update the `redis.pools.system.host` in the [instance.conf](instance.conf).
 
-> **_Hint:_** `ifconfig -a` on Mac/Unix or `ipconfig /ALL` on Windows are good commands to determine your IP address 
+>:bulb: `ifconfig -a` on Mac/Unix or `ipconfig /ALL` on Windows are good commands to determine your IP address 
 >(and as always, the good ol' [Google](google.com) for other ways)
 
 ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-3.puml)
@@ -213,7 +219,7 @@ To ingest data into Elastic, jump to the [ChatUplink](src/main/java/server/ChatU
 implement the TODOs in **distributeMessage**. After restarting the debugger, new chat message should be
 visible in the search UI. :clap:
 
-> **_Hint:_** Just like with Redis: if you share the same Elasticsearch, the messages from everyone
+>:bulb: Just like with Redis: if you share the same Elasticsearch, the messages from everyone
 > will be visible and searcheable to every server and its users.
 
 ---

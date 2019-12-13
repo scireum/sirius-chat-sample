@@ -80,13 +80,13 @@ even monitor some details via http://localhost:9000/system/console (e.g. by exec
 
 >:bulb: Each challenge has a unique ID (such as CHALLENGE-1). You can search in all files ("Find in Path")
 using this ID to spot all relevant code positions. You will also find the appropriate `Class.solution` file
-which will assist in case you're in trouble :wink:
+which will assist in case you're in trouble.
 
 >You can also checkout the [solution](https://github.com/scireum-incubator/sirius-chat-sample/tree/solution) branch
 >and jump directly to the final working solution.
 
 In the diagrams below you will find notes like this ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/note.puml)
-, giving you a hint to where you should white some code. 
+giving you a hint to where you should white some code. :wink:
 
 ### Hello Myself (CHALLENGE-1)
 

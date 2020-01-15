@@ -1,5 +1,4 @@
 @startuml
-skinparam handwritten true
 skinparam monochrome true
 skinparam Note {
     FontName Arial

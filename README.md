@@ -20,29 +20,6 @@ The modules are:
 * [sirius-db](https://github.com/scireum/sirius-db) - Contains a persistence framework which helps to manage [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/) datasources, [MongoDB](https://docs.mongodb.com/), [Elasticsearch](https://www.elastic.co/guide/index.html) or [Redis](https://redis.io/documentation)
 * [sirius-biz](https://github.com/scireum/sirius-biz) - Contains a lot of high level frameworks which help to built cloud native business applications
 
-## Pre-Requisites
-
-You should have the following Software stack installed in order to execute these challenges:
-
-* Java JDK 8 *recommended*- [OpenJDK](https://openjdk.java.net/install/) or [Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* [git](https://git-scm.com/downloads)
-* [IntelliJ Idea](https://www.jetbrains.com/idea/)
-* [Docker Desktop](https://www.docker.com/products/docker-desktop) *registration needed*.
-    * Alternative for some Windows systems uncapable of running Docker Desktop: [Docker ToolBox](https://docs.docker.com/toolbox/)
-* [docker-compose](https://docs.docker.com/compose/install/)
-
-Once everything is installed, launch IntelliJ and choose to create a New Project from Version Control, and give the official Github URL for this project:
-
-https://github.com/scireum-incubator/sirius-chat-sample.git
-
->:page_with_curl: A Popup will show up suggesting to Import as a Maven Project. Click **Import** and/or enable the Auto-Import option.
-
-### Virtual Machine
-
-As an alternative to installing the software stack above, you can also try this exercise using a ready-made Virtual Machine (aprox. 4.2GB) containing 
-everything pre-installed under an [Ubuntu](https://ubuntu.com) Linux distribution. Download the Virtual Machine appliance from 
-[here](https://1drv.ms/f/s!ArdSSpYl491Fm0q7sSNFSm-oGI93) and run it with [VirtualBox](https://www.virtualbox.org). MD5 and SHA checksums also available.
-
 ## Introduction
 
 To save some time, the project is already setup and also contains some scaffolding for the
@@ -79,11 +56,7 @@ like `System is UP and RUNNING` appears in the console, you should be able to vi
 even monitor some details via http://localhost:9000/system/console (e.g. by executing the `http` command). 
 
 >:bulb: Each challenge has a unique ID (such as CHALLENGE-1). You can search in all files ("Find in Path")
-using this ID to spot all relevant code positions. You will also find the appropriate `Class.solution` file
-which will assist in case you're in trouble.
-
->You can also checkout the [solution](https://github.com/scireum-incubator/sirius-chat-sample/tree/solution) branch
->and jump directly to the final working solution.
+using this ID to spot all relevant code positions.
 
 In the diagrams below you will find notes like this ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/note.puml)
 giving you a hint to where you should white some code. :wink:

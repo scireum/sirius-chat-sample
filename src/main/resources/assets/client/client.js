@@ -73,11 +73,11 @@ function openSocket() {
 
     socket.onclose = function () {
         console.log('[websocket] Connection closed');
-        setTimeout(openSocket, 0);
+        //setTimeout(openSocket, 0);
     };
 
     socket.onerror = function (error) {
         console.log('[websocket] Error: ' + error.message);
-        setTimeout(openSocket, 0);
+        //setTimeout(openSocket, 0);
     };
 }

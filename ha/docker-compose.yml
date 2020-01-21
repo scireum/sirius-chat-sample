@@ -10,7 +10,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.18.0.0/16
+        - subnet: 172.20.0.0/16
 
 services:
   # redis
@@ -21,7 +21,7 @@ services:
     hostname: redis
     networks:
       custom_net:
-        ipv4_address: 172.18.0.10
+        ipv4_address: 172.20.0.10
 
   # es
   elasticsearch:
@@ -35,7 +35,7 @@ services:
     hostname: elasticsearch
     networks:
       custom_net:
-        ipv4_address: 172.18.0.11
+        ipv4_address: 172.20.0.11
 
   # traefik load balancer
   traefik:

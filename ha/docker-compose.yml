@@ -42,7 +42,7 @@ services:
     image: traefik:v2.0
     networks:
       - custom_net
-    # TODO Add a configuration pretty much like the reverse-proxy from the reference
+    # TODO SIDE-QUEST-1 Add a configuration pretty much like the reverse-proxy from the reference
 
   # sirius-chat
   sirius-chat-sample:
@@ -57,5 +57,5 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - ES_HOSTS=elasticsearch:9200
-    # TODO Add a configuration so traefik can load-balance requests into the chat
+    # TODO SIDE-QUEST-1 Add a configuration so traefik can load-balance requests into the chat
     # TODO Hint: rule=PathPrefix(`/`)

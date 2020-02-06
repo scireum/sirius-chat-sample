@@ -217,7 +217,8 @@ which is used to actually render the search output [search.html.pasta](src/main/
 
 To ingest data into Elastic, jump to the [ChatUplink](src/main/java/server/ChatUplink.java) and
 implement the TODOs in **distributeMessage**. After restarting the debugger, new chat message should be
-visible in the search UI. :clap:
+visible in the search UI. :clap: You might notice that the sender of the message is missing in the table.
+ Go back to [search.html.pasta](src/main/resources/templates/search.html.pasta) and try to edit it to also show the sender of each message!
 
 >:bulb: Just like with Redis: if you share the same Elasticsearch, the messages from everyone
 > will be visible and searcheable to every server and its users.

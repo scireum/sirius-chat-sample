@@ -17,25 +17,22 @@
         <w:table data="messages.getItems()">
             <thead>
             <tr>
-                <th class="col-md-4">
-                    Absender <br>
-                    <small class="muted"> Gesendet am</small>
-                </th>
                 <th>
                     Nachricht
+                </th>
+                <th>
+                    Gesendet am
                 </th>
             </tr>
             </thead>
             <tbody>
             <i:for type="search.SearchableChatMessage" var="message" items="messages.getItems()">
                 <tr>
-                    <td class="title">
-                        @message.getSender()
-                        <br>
-                        <small class="muted">@toUserString(message.getSendAt())</small>
-                    </td>
                     <td>
                         @message.getText()
+                    </td>
+                    <td>
+                        @toUserString(message.getSendAt())
                     </td>
                 </tr>
             </i:for>

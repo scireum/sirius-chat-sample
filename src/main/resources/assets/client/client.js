@@ -8,12 +8,38 @@ document.addEventListener("DOMContentLoaded", function () {
     chatForm = document.querySelector(".chat-input-area");
     chatInput = document.querySelector(".chat-input");
     chatWall = document.querySelector(".chat-wall");
+    optionsButton = document.querySelector(".chat-header-options");
     openSocket();
     chatForm.addEventListener("submit", function (event) {
         event.preventDefault();
         sendMessage();
     });
+    optionsButton.addEventListener("click", toggleDialog);
 });
+
+function toggleDialog() {
+    var dialog = document.querySelector('dialog');
+    var closebutton = document.getElementById('close-dialog');
+    var pagebackground = document.querySelector('body');
+
+    if (!dialogWindow.hasAttribute('open')) {
+        dialogWindow.setAttribute('open', 'open');
+        closebutton.focus();
+        closebutton.addEventListener('click', toggleDialog);
+        document.addEventListener('keydown', function (event) {
+            if (event.keyCode === 27) {
+                toggleDialog();
+            }
+        }, true);
+        var div = document.createElement('div');
+        div.id = 'backdrop';
+        document.body.appendChild(div);
+    } else {
+        dialogWindow.removeAttribute('open');
+        var div = document.querySelector('#backdrop');
+        div.parentNode.removeChild(div);
+    }
+}
 
 function appendMessage(messageText, senderName) {
     var side = "left";

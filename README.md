@@ -230,6 +230,11 @@ and add it to every message we send through the web socket. Then we have a new f
 for this info and fill it when saving the message to the db. As a last step, we have to edit [search.html.pasta](src/main/resources/templates/search.html.pasta),
 so it also shows this new info.
 
+### Side-Quest: JavaScript Debugging (SIDE-QUEST-6) 
+
+The info button located in the top right in the chat window is not working! Can you use the Developer Tools provided by 
+your browser to find and fix the error in the [client.js](src/main/resources/assets/client/client.js) file?
+
 ---
 
 Made with all the :heart: in the world by [scireum](https://scireum.de) in Remshalden.

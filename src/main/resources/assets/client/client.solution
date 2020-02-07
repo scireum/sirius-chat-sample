@@ -11,3 +11,8 @@ function sendMessage() {
         userAgent: navigator.userAgent
     }));
 }
+
+//TODO SIDE-QUEST-6
+
+function toggleDialog() {
+    var dialogWindow = document.querySelector('dialog');

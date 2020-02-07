@@ -1,0 +1,13 @@
+//TODO SIDE-QUEST-5
+
+public static final Mapping USER_AGENT = Mapping.named("userAgent");
+private String userAgent;
+
+
+public String getUserAgent() {
+    return userAgent;
+}
+
+public void setUserAgent(String userAgent) {
+    this.userAgent = userAgent;
+}

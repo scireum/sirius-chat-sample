@@ -28,3 +28,14 @@ public void distributeMessage(ChatMessage message) {
         msg.setSendAt(LocalDateTime.now());
         elastic.update(msg);
 }
+
+//TODO SIDE-QUEST-5
+
+public void distributeMessage(ChatMessage message) {
+        SearchableChatMessage msg = new SearchableChatMessage();
+        msg.setSender(message.getSender());
+        msg.setText(message.getText());
+        msg.setSendAt(LocalDateTime.now());
+        msg.setUserAgent(message.getUserAgent());
+        elastic.update(msg);
+}

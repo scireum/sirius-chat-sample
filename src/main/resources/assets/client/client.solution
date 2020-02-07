@@ -1,0 +1,13 @@
+//TODO SIDE-QUEST-5
+
+function sendMessage() {
+    var msgText = chatInput.value;
+    if (!msgText) return;
+    chatInput.value = "";
+    socket.send(JSON.stringify({
+        type: 'text',
+        text: msgText,
+        sender: USER_NAME,
+        userAgent: navigator.userAgent
+    }));
+}

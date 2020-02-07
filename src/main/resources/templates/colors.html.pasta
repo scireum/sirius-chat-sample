@@ -1,0 +1,8 @@
+<i:arg name="htmlColors" type="String"/>
+
+<w:page title="sirius colors">
+    <i:block name="breadcrumbs">
+        <li><a href="/colors">sirius colors</a></li>
+    </i:block>
+    <i:raw>@htmlColors</i:raw>
+</w:page>

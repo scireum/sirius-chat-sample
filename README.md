@@ -235,6 +235,12 @@ so it also shows this new info.
 The info button located in the top right in the chat window is not working! Can you use the Developer Tools provided by 
 your browser to find and fix the error in the [client.js](src/main/resources/assets/client/client.js) file?
 
+### Side-Quest: Java Debugging (SIDE-QUEST-7) 
+
+If you navigate to the menu point SIDE-QUEST-7, you will get an error. Can you fix it so you get a list of 100 Colors when calling this route?
+You can start by searching the system log for the exception that occured.
+
+
 ---
 
 Made with all the :heart: in the world by [scireum](https://scireum.de) in Remshalden.

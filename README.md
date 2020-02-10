@@ -224,11 +224,12 @@ visible in the search UI. :clap:
 
 ### Side-Quest: Who am I? (SIDE-QUEST-5) 
 
-Now we want to practice what we have done so far and add another info into our [SearchableChatMessage](src/main/java/search/SearchableChatMessage.java).
-First we have to look at the [client.js](src/main/resources/assets/client/client.js) and read the info (e.g. the user agent string) from the user's browser
-and add it to every message we send through the web socket. Then we have a new field to [SearchableChatMessage](src/main/java/search/SearchableChatMessage.java)
-for this info and fill it when saving the message to the db. As a last step, we have to edit [search.html.pasta](src/main/resources/templates/search.html.pasta),
-so it also shows this new info.
+
+First we want to enhance the [client.js](src/main/resources/assets/client/client.js) to retrieve an additional information
+from the user's browser (e.g. the user agent header) and send it over the web socket. 
+We also want to store this info into our [SearchableChatMessage](src/main/java/search/SearchableChatMessage.java) so we
+have to include a new field and ultimately display it by by editing the [search.html.pasta](src/main/resources/templates/search.html.pasta).
+You can look at the name field and how it is handled if you need any help.
 
 ### Side-Quest: JavaScript Debugging (SIDE-QUEST-6) 
 

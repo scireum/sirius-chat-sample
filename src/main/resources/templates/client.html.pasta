@@ -12,16 +12,21 @@
         <li><a href="/chat">sirius Chat</a></li>
     </i:block>
     <section class="chat-holder">
+        
         <section class="chat">
             <header class="chat-header">
                 <div class="chat-header-title">
                     <i class="fas fa-comment-alt"></i> sirius Chat
                 </div>
                 <div class="chat-header-options">
-                    <span><i class="fa fa-cogs"></i></span>
+                    <span><i class="fa fa-info-circle"></i></span>
                 </div>
             </header>
-
+            <dialog role="dialog" aria-labelledby="dialog-heading">
+                <button id="close-dialog">Schließen</button>
+                <h2 id="dialog-heading">Info</h2>
+                <p>Made with all the love in the world by scireum in Remshalden, Germany</p>
+            </dialog>
             <main class="chat-wall">
                 <div class="msg left-msg">
 

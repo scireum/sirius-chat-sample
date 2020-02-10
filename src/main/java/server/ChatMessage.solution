@@ -1,0 +1,14 @@
+//TODO SIDE-QUEST-5
+
+    
+private String userAgent;
+
+public ChatMessage(String text, String sender, String userAgent) {
+    this.text = text;
+    this.sender = sender;
+    this.userAgent = userAgent;
+}
+
+public String getUserAgent() {
+    return userAgent;
+}

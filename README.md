@@ -222,6 +222,26 @@ visible in the search UI. :clap:
 >:bulb: Just like with Redis: if you share the same Elasticsearch, the messages from everyone
 > will be visible and searcheable to every server and its users.
 
+### Side-Quest: Who am I? (SIDE-QUEST-5) 
+
+
+First we want to enhance the [client.js](src/main/resources/assets/client/client.js) to retrieve an additional information
+from the user's browser (e.g. the user agent header) and send it over the web socket. 
+We also want to store this info into our [SearchableChatMessage](src/main/java/search/SearchableChatMessage.java) so we
+have to include a new field and ultimately display it by by editing the [search.html.pasta](src/main/resources/templates/search.html.pasta).
+You can look at the name field and how it is handled if you need any help.
+
+### Side-Quest: JavaScript Debugging (SIDE-QUEST-6) 
+
+The info button located in the top right in the chat window is not working! Can you use the Developer Tools provided by 
+your browser to find and fix the error in the [client.js](src/main/resources/assets/client/client.js) file?
+
+### Side-Quest: Java Debugging (SIDE-QUEST-7) 
+
+If you navigate to the menu point SIDE-QUEST-7, you will get an error. Can you fix it so you get a list of 100 Colors when calling this route?
+You can start by searching the system log for the exception that occured.
+
+
 ---
 
 Made with all the :heart: in the world by [scireum](https://scireum.de) in Remshalden.

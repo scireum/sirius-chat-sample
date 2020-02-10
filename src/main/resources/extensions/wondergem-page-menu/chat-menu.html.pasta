@@ -5,4 +5,5 @@
     <w:menuItem url="/chat" title="Chat"/>
     <w:menuItem url="/search" title="Nachrichtenverlauf"/>
     <w:menuItem url="/" title="Name ändern"/>
+    <w:menuItem url="/colors" title="SIDE-QUEST-7"/>
 </i:if>

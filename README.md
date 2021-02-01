@@ -33,7 +33,7 @@ You should have the following Software stack installed in order to execute these
 
 Once everything is installed, launch IntelliJ and choose to create a New Project from Version Control, and give the official Github URL for this project:
 
-https://github.com/scireum-incubator/sirius-chat-sample.git
+https://github.com/scireum/sirius-chat-sample.git
 
 >:page_with_curl: A Popup will show up suggesting to Import as a Maven Project. Click **Import** and/or enable the Auto-Import option.
 
@@ -82,10 +82,10 @@ even monitor some details via http://localhost:9000/system/console (e.g. by exec
 using this ID to spot all relevant code positions. You will also find the appropriate `Class.solution` file
 which will assist in case you're in trouble.
 
->You can also checkout the [solution](https://github.com/scireum-incubator/sirius-chat-sample/tree/solution) branch
+>You can also checkout the [solution](https://github.com/scireum/sirius-chat-sample/tree/solution) branch
 >and jump directly to the final working solution.
 
-In the diagrams below you will find notes like this ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/note.puml)
+In the diagrams below you will find notes like this ![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum/sirius-chat-sample/master/diagrams/note.puml)
 giving you a hint to where you should white some code. :wink:
 
 ### Hello Myself (CHALLENGE-1)
@@ -103,7 +103,7 @@ web socket being connected, the [WebSocketDispatcher](src/main/java/server/WebSo
 will detect this and initialize a [ChatSession](src/main/java/server/ChatSession.java). Head over
 to the session class to read the provided docs and finally to start some coding! :computer:
 
-![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-1.puml)
+![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum/sirius-chat-sample/master/diagrams/challenge-1.puml)
 
 Once the challenge is completed, you should be able to chat with yourself. :clap:
 
@@ -113,7 +113,7 @@ For the second challenge, head to [ChatSessionRegistry](src/main/java/server/Cha
 implement the missing parts. Then switch to [ChatSession](src/main/java/server/ChatSession.java) and 
 [ChatUplink](src/main/java/server/ChatUplink.java) to call the appropriate methods.
 
-![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-2.puml)
+![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum/sirius-chat-sample/master/diagrams/challenge-2.puml)
 
 Once this is all done, restart the debugger and open two or more tabs (or let others in the network connect to your computer).
 You now have ONE server which can handle multiple users! :clap:
@@ -135,7 +135,7 @@ update the `redis.pools.system.host` in the [instance.conf](instance.conf).
 >:bulb: `ifconfig -a` on Mac/Unix or `ipconfig /ALL` on Windows are good commands to determine your IP address 
 >(and as always, the good ol' [Google](google.com) for other ways)
 
-![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/challenge-3.puml)
+![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum/sirius-chat-sample/master/diagrams/challenge-3.puml)
 
 Now restart the application and MULTIPLE servers (with their own users) can now participate in the same chat! :clap:
 
@@ -168,7 +168,7 @@ Read the Quick Start Guide at [traefik.io](https://docs.traefik.io/getting-start
 To start the set, head to the ha folder and issue: `docker-compose up -d`
 To start 2 instances of the sirius-chat you can use: `docker-compose up -d --scale sirius-chat-sample=2`
 
-![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum-incubator/sirius-chat-sample/master/diagrams/side-challenge-1.puml)
+![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/scireum/sirius-chat-sample/master/diagrams/side-challenge-1.puml)
 
 Now when browsing the application via http://localhost, you should be able to stop one of the containers on-the-fly
 and still be able to chat as you will be automatically redirected to another running instance! :v:
